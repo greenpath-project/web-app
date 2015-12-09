@@ -1,0 +1,1 @@
+angular.module('greenPathApp', ['ngRoute', 'ngResource', 'ui.bootstrap', 'ng-breadcrumbs', 'ngAnimate', 'door3.css']);

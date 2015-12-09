@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app="greenPathApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Green Path</title>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/greenpath.css" rel="stylesheet">
+        <!--base href="/"-->
+    </head>
+    <body>
+
+        <div ng-controller="navCtrl">
+            
+            <div id="header" ng-include="template.url"></div>
+            
+            <div id="content" ng-view></div>
+
+            <div id="footer"></div>
+
+        </div>
+
+        <!-- Vendors -->        
+        <script src="assets/bower_components/angular/angular.min.js"></script>
+        <script src="assets/bower_components/angular-resource/angular-resource.min.js"></script>
+        <script src="assets/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="assets/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="assets/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="assets/bower_components/ng-breadcrumbs/dist/ng-breadcrumbs.min.js"></script>
+        <script src="assets/bower_components/angular-css/angular-css.min.js"></script>
+
+        <!-- Angular App -->
+        <script src="app/app.module.js"></script>
+        <script src="app/app.route.js"></script>
+        <script src="app/app.run.js"></script>
+
+        <!-- Controllers -->
+        <script src="app/components/home/home.ctrl.js"></script>
+        <script src="app/components/navigation/navigation.ctrl.js"></script>
+        <script src="app/components/apropos/apropos.ctrl.js"></script>
+        <script src="app/components/carte/carte.ctrl.js"></script>
+        <script src="app/components/documentation/documentation.ctrl.js"></script>
+        <script src="app/components/projet/projet.ctrl.js"></script>
+        <script src="app/components/recherche/recherche.ctrl.js"></script>
+        
+        <!-- Directives -->
+        <script src="app/shared/navcard/navcard.drv.js"></script>
+        
+    </body>
+</html>

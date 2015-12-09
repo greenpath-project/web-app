@@ -1,0 +1,15 @@
+{
+  "name": "green_path_node",
+  "version": "1.0.0",
+  "description": "Green Path App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julien",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3",
+    "nodemon": "^1.8.1"
+  }
+}
