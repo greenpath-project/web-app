@@ -1,6 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom:20px; margin-top: 0px;">
 
-        <div ng-repeat="card in cards" class="col-md-6 col-xs-12">
+        <div ng-repeat="card in cards" ng-show="card.showCard" class="col-md-6 col-xs-12">
 
             <ng-navcard card ="card"></ng-navcard>
 

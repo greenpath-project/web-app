@@ -1,13 +1,10 @@
-body { 
-    padding-top: 60px; 
-}
-
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0px;
     width: 100%;
-    height: 60px;
     background-color: #263039;
+    height:150px;
+    margin: 0 auto -155px;
 }
 
 .jumbotron{
@@ -18,7 +15,15 @@ body {
     height: 150px;
 }
 
-.ng-navcard{
-    background-color: red;
-    color: red;
+.navbar{
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+
+.navbar-transparent{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.header{
+    background-image: url("/assets/img/navcard/green-path-header.jpg");
 }

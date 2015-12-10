@@ -1,10 +1,14 @@
-angular.module('greenPathApp').directive('ngNavcard', function(){
+angular.module('greenPathApp').directive('ngNavcard', ['$location', function($location){
     return {
         restrict: 'E',
         replace: true,
         scope: {
             card: '='
-        },        
-        templateUrl: 'app/shared/navcard/navcard.vw.html'
+        },
+        link : function (scope, elem, attrs, $location) {
+
+        },
+        templateUrl: 'app/shared/navcard/navcard.vw.html',
+        css: 'app/shared/navcard/navcard.stl.css'
     };
-});
+}]);
