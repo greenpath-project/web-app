@@ -1,4 +1,4 @@
-angular.module('greenPathApp').controller('navCtrl', ['$scope', 'breadcrumbs', 'Nav', function($scope, breadcrumbs, Nav){
+angular.module('greenPathApp').controller('MainCtrl', ['$scope', 'breadcrumbs', 'Nav', function($scope, breadcrumbs, Nav){
 
     $scope.cards = Nav.query();
 
@@ -16,7 +16,5 @@ angular.module('greenPathApp').controller('navCtrl', ['$scope', 'breadcrumbs', '
             url: 'app/shared/footer/footer.vw.html'
         }
     ];
-    $scope.header = $scope.templates[0];
-    $scope.footer = $scope.templates[1];
 
 }]);

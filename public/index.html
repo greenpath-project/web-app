@@ -1,23 +1,22 @@
 <!doctype html>
-<html ng-app="greenPathApp">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Green Path</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/greenpath.css" rel="stylesheet">
     <!--base href="/"-->
 </head>
-<body>
+<body ng-app="greenPathApp">
 
-<div ng-controller="navCtrl">
+<div ng-controller="MainCtrl">
 
-    <div id="header" ng-include="header.url"></div>
+    <ng-header cards="cards" breadcrumbs="breadcrumbs"></ng-header>
 
     <div id="content" class="container-fluid" ng-view></div>
 
-    <div id="footer" ng-include="footer.url"></div>
+    <ng-footer></ng-footer>
 
 </div>
 
@@ -47,6 +46,9 @@
 
 <!-- Directives -->
 <script src="app/shared/navcard/navcard.drv.js"></script>
+<script src="app/shared/header/header.drv.js"></script>
+<script src="app/shared/footer/footer.drv.js"></script>
+
 
 <!-- Services -->
 <script src="app/components/main/main.svc.js"></script>

@@ -1,8 +1,8 @@
 <div>
 
-    <img ng-src="{{card.imgUrl}}" ng-mouseover="hover = true" ng-mouseleave="hover = false" class="navcard img-thumbnail">
+    <img ng-src="{{card.imgUrl}}" ng-mouseover="hover = true" class="navcard img-thumbnail">
 
-    <a ng-href="{{card.url}}" ng-show="hover"><div class="box-hover">
+    <a ng-href="{{card.url}}" ng-show="hover" ng-mouseleave="hover = false" ><div class="box-hover">
 
         <div class="content-box-hover">
 
