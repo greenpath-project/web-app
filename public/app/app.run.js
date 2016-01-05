@@ -1,3 +1,3 @@
-angular.module('greenPathApp').run(function($rootScope){  
-         
-});
+angular.module('greenPathApp').run([function(){
+
+}]);

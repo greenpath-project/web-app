@@ -1,58 +1,54 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Green Path</title>
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <!--base href="/"-->
-</head>
-<body ng-app="greenPathApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Green Path</title>
 
-<div ng-controller="MainCtrl">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="assets/bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet">
+        <link href="assets/css/style.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <ng-header cards="cards" breadcrumbs="breadcrumbs"></ng-header>
+    </head>
+    <body id="top" ng-app="greenPathApp">
 
-    <div id="content" class="container-fluid" ng-view></div>
+        <div ng-controller="MainCtrl">
 
-    <ng-footer></ng-footer>
+            <mz-header cards="cards"></mz-header>
 
-</div>
+            <mz-banner></mz-banner>
 
-<!-- Vendors -->
-<script src="assets/bower_components/angular/angular.min.js"></script>
-<script src="assets/bower_components/angular-resource/angular-resource.min.js"></script>
-<script src="assets/bower_components/angular-route/angular-route.min.js"></script>
-<script src="assets/bower_components/angular-animate/angular-animate.min.js"></script>
-<script src="assets/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-<script src="assets/bower_components/ng-breadcrumbs/dist/ng-breadcrumbs.min.js"></script>
-<script src="assets/bower_components/angular-css/angular-css.min.js"></script>
+            <ng-view></ng-view>
 
-<!-- Angular App -->
-<script src="app/app.module.js"></script>
-<script src="app/app.route.js"></script>
-<script src="app/app.run.js"></script>
+            <mz-footer></mz-footer>
 
-<!-- Controllers -->
-<script src="app/components/home/home.ctrl.js"></script>
-<script src="app/components/main/main.ctrl.js"></script>
+            <mz-top-button></mz-top-button>
 
-<script src="app/components/apropos/apropos.ctrl.js"></script>
-<script src="app/components/carte/carte.ctrl.js"></script>
-<script src="app/components/documentation/documentation.ctrl.js"></script>
-<script src="app/components/projet/projet.ctrl.js"></script>
-<script src="app/components/recherche/recherche.ctrl.js"></script>
+        </div>
 
-<!-- Directives -->
-<script src="app/shared/navcard/navcard.drv.js"></script>
-<script src="app/shared/header/header.drv.js"></script>
-<script src="app/shared/footer/footer.drv.js"></script>
+        <!-- Vendors -->
+        <script src="assets/bower_components/angular/angular.min.js"></script>
+        <script src="assets/bower_components/angular-resource/angular-resource.min.js"></script>
+        <script src="assets/bower_components/angular-route/angular-route.min.js"></script>
+        <script src="assets/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="assets/bower_components/angular-css/angular-css.min.js"></script>
+        <script src="assets/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="assets/bower_components/Materialize/dist/js/materialize.min.js"></script>
 
-
-<!-- Services -->
-<script src="app/components/main/main.svc.js"></script>
+        <!-- Angular App -->
+        <script src="app/app.module.js"></script>
+        <script src="app/app.route.js"></script>
+        <script src="app/app.run.js"></script>
+        <script src="app/components/main/main.ctrl.js"></script>
+        <script src="app/components/main/main.svc.js"></script>
+        <script src="app/shared/navcard/navcard.drv.js"></script>
+        <script src="app/shared/header/header.drv.js"></script>
+        <script src="app/shared/content/content.drv.js"></script>
+        <script src="app/shared/footer/footer.drv.js"></script>
+        <script src="app/shared/topButton/topButton.drv.js"></script>
+        <script src="app/shared/banner/banner.drv.js"></script>
+        <script src="app/shared/iconSection/iconSection.drv.js"></script>
 
 
-</body>
+    </body>
 </html>

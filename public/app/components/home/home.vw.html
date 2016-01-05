@@ -1,9 +1,3 @@
-<div class="container-fluid" style="margin-bottom:20px; margin-top: 0px;">
+<mz-icon-section cards="cards"></mz-icon-section>
 
-        <div ng-repeat="card in cards" ng-show="card.showCard" class="col-md-6 col-xs-12">
-
-            <ng-navcard card ="card"></ng-navcard>
-
-        </div>
-    
-</div>
+<mz-content card="card" ng-repeat="card in cards"></mz-content>

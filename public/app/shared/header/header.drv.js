@@ -1,12 +1,18 @@
-angular.module('greenPathApp').directive('ngHeader', function(){
+angular.module('greenPathApp').directive('mzHeader', ['$location', '$anchorScroll', function($location, $anchorScroll){
     return {
         restrict: 'E',
         replace: true,
         scope: {
-            cards: '=',
-            breadcrumbs: '='
+            cards: '='
         },
         templateUrl: 'app/shared/header/header.vw.html',
-        css: 'app/shared/header/header.stl.css'
+        link: function(scope, element, attrs){
+
+            scope.gotoAnchor  = function(anchor){
+                $location.hash(anchor);
+                $anchorScroll();
+            }
+
+        }
     };
-});
+}]);

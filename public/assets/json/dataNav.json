@@ -3,35 +3,40 @@
     "title": "Projet",
     "description": "Toutes les informations relatives au projet Green Path.",
     "url": "#/projet",
-    "imgUrl": "assets/img/navcard/projet.jpg",
-    "showCard": false
+    "anchor": "projet",
+    "imgUrl": "assets/img/paralax/projet.jpg",
+    "showCard": true
   },
   {
     "title": "Carte",
     "description": "Accès à la carte interrative Green Path.",
     "url": "#/carte",
-    "imgUrl": "assets/img/navcard/maps.jpg",
+    "anchor": "carte",
+    "imgUrl": "assets/img/paralax/maps2.jpg",
     "showCard": true
   },
   {
     "title": "Moteur de recherche",
     "description": "Accès au moteur de recherche de métadonnées.",
     "url": "#/recherche",
-    "imgUrl": "assets/img/navcard/recherche.jpg",
+    "anchor": "recherche",
+    "imgUrl": "assets/img/paralax/recherche.jpg",
     "showCard": true
   },
   {
     "title": "Documentation",
     "description": "Toute la documentation Green Path.",
     "url": "#/documentation",
-    "imgUrl": "assets/img/navcard/documentation.jpg",
+    "anchor": "documentation",
+    "imgUrl": "assets/img/paralax/documentation.jpg",
     "showCard": false
   },
   {
     "title": "A propos",
     "description": "Plus d'information",
     "url": "#/apropos",
-    "imgUrl": "assets/img/navcard/apropos.jpg",
+    "anchor": "apropos",
+    "imgUrl": "assets/img/paralax/apropos2.jpg",
     "showCard": false
   }
 ]

@@ -1,10 +1,9 @@
-angular.module('greenPathApp').directive('ngFooter', function(){
+angular.module('greenPathApp').directive('mzFooter', function(){
     return {
         restrict: 'E',
         replace: true,
         scope: {
         },
-        templateUrl: 'app/shared/footer/footer.vw.html',
-        css: 'app/shared/footer/footer.stl.css'
+        templateUrl: 'app/shared/footer/footer.vw.html'
     };
 });
