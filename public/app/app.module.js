@@ -1,1 +1,1 @@
-angular.module('greenPathApp', ['ngRoute', 'ngResource', 'ngAnimate', 'door3.css']);
+angular.module('greenPathApp', ['ngRoute', 'ngResource', 'ngAnimate']);

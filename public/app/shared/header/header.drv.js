@@ -1,4 +1,4 @@
-angular.module('greenPathApp').directive('mzHeader', ['$location', '$anchorScroll', function($location, $anchorScroll){
+angular.module('greenPathApp').directive('mzHeader', [function(){
     return {
         restrict: 'E',
         replace: true,
@@ -9,9 +9,17 @@ angular.module('greenPathApp').directive('mzHeader', ['$location', '$anchorScrol
         link: function(scope, element, attrs){
 
             scope.gotoAnchor  = function(anchor){
-                $location.hash(anchor);
-                $anchorScroll();
+                 $('html, body').animate({scrollTop: $('#'+anchor).position().top},800);
+                return false;
             }
+
+
+            $('.button-collapse').sideNav({
+                    menuWidth: 250,
+                    edge: 'left',
+                    closeOnClick: true
+                }
+            );
 
         }
     };

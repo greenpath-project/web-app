@@ -1,15 +1,14 @@
 <div class="container">
     <div class="section">
-
         <!--   Icon Section   -->
         <div class="row">
 
-            <div ng-if="card.showCard" ng-repeat="card in cards" class="col s12 m4">
+            <div ng-if="card.showIcon" ng-repeat="card in cards" class="col s12 m4">
                 <div class="icon-block">
                     <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
                     <h5 class="center">{{card.title}}</h5>
 
-                    <p class="light">{{card.description}}</p>
+                    <p class="light center">{{card.shorttext}}</p>
                 </div>
             </div>
 

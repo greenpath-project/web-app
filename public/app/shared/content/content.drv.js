@@ -8,7 +8,6 @@ angular.module('greenPathApp').directive('mzContent', function(){
         },
         controller: 'MainCtrl',
         link: function(scope, element, attrs){
-            $('.button-collapse').sideNav();
             $('.parallax').parallax();
         }
     };

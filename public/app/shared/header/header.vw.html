@@ -2,15 +2,16 @@
     <div class="nav-wrapper container">
         <a id="logo-container" href="/" class="brand-logo">Green Path</a>
 
-
         <ul class="right hide-on-med-and-down">
-            <li ng-repeat="card in cards"><a ng-click="gotoAnchor(card.anchor)">{{card.title}}</a></li>
+            <li ng-if="card.isAnchor" ng-repeat="card in cards"><a ng-click="gotoAnchor(card.anchor)">{{card.title}}</a></li>
+            <li ng-if="!card.isAnchor" ng-repeat="card in cards"><a ng-href="{{card.url}}">{{card.title}}</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <li ng-repeat="card in cards"><a ng-click="gotoAnchor(card.anchor)">{{card.title}}</a></li>
+            <li ng-if="card.isAnchor" ng-repeat="card in cards"><a ng-click="gotoAnchor(card.anchor)">{{card.title}}</a></li>
+            <li ng-if="!card.isAnchor" ng-repeat="card in cards"><a ng-href="{{card.url}}">{{card.title}}</a></li>
         </ul>
 
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="/accueil" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
 </nav>

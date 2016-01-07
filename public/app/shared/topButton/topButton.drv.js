@@ -1,4 +1,4 @@
-angular.module('greenPathApp').directive('mzTopButton', ['$location', '$anchorScroll', function($location, $anchorScroll){
+angular.module('greenPathApp').directive('mzTopButton', [function(){
     return {
         restrict: 'E',
         replace: true,
@@ -6,10 +6,11 @@ angular.module('greenPathApp').directive('mzTopButton', ['$location', '$anchorSc
         },
         templateUrl: 'app/shared/topButton/topButton.vw.html',
         link: function(scope, element, attrs){
-            scope.goToTop  = function(anchor){
-                $location.hash('top');
-                $anchorScroll();
-            }
+
+            $(element).click(function(){
+                $('html, body').animate({scrollTop : 0},800);
+                return false;
+            });
         }
     };
 }]);
