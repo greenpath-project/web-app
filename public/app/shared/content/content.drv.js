@@ -8,7 +8,7 @@ angular.module('greenPathApp').directive('mzContent', function(){
         },
         controller: 'MainCtrl',
         link: function(scope, element, attrs){
-            $('.parallax').parallax();
+
         }
     };
 });

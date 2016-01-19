@@ -2,4 +2,6 @@ angular.module('greenPathApp').controller('MainCtrl', ['$scope', 'Nav', function
 
     $scope.cards = Nav.query();
 
+    $('.parallax').parallax();
+
 }]);
