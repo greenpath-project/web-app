@@ -84,6 +84,22 @@ div.pinned {
     bottom: 30px;
 }
 
+p.text-section {
+    text-align: justify
+}
+
+.parallax img {
+    display: inline;
+}
+
+
+img.icon-section {
+    height: auto;
+    max-height: 100px;
+    position: relative;
+    left: 35%;
+}
+
 
 /* Transition *//* ANIMATIONS
 ============================================================================= */

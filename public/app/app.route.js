@@ -6,7 +6,8 @@ angular.module('greenPathApp').config(['$routeProvider', function($routeProvider
         }
     ).when('/documentation',
         {
-            templateUrl: 'app/components/documentation/documentation.vw.html'
+            templateUrl: 'app/components/documentation/documentation.vw.html',
+            controller: 'DocumentationCtrl'
         }
     ).when('/documentation/hardware',
         {
@@ -28,10 +29,6 @@ angular.module('greenPathApp').config(['$routeProvider', function($routeProvider
         {
             templateUrl: 'app/components/project/project.vw.html',
             controller: 'ProjectCtrl'
-        }
-    ).when('/about',
-        {
-            templateUrl: 'app/components/about/about.vw.html'
         }
     ).otherwise(
         {
