@@ -1,9 +1,7 @@
-<div class="container-fluid">
+<mz-banner></mz-banner>
 
-        <div ng-repeat="card in cards" class="col-md-6 col-xs-12">
+<mz-icon-section cards="cards"></mz-icon-section>
 
-            <ng-navcard card ="card"></ng-navcard>
+<mz-content card="card" ng-if="card.isAnchor" ng-repeat="card in cards"></mz-content>
 
-        </div>
-    
-</div>
+<mz-scrollspy cards="cards"></mz-scrollspy>

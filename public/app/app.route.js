@@ -1,35 +1,42 @@
-angular.module('greenPathApp').config(function($routeProvider, $locationProvider){
+angular.module('greenPathApp').config(['$routeProvider', function($routeProvider){
 
-         $routeProvider.when('/', {
-                  templateUrl: 'app/components/home/home.vw.html',
-                  label: 'Accueil'
-         }).when('/projet',{
-                  templateUrl: 'app/components/projet/projet.vw.html',
-                  controller: 'projetCtrl',
-                  label: 'Projet'
-         }).when('/carte', {
-                  templateUrl: 'app/components/carte/carte.vw.html',
-                  controller: 'carteCtrl',
-                  label: 'Carte'
-         }).when('/recherche', {
-                  templateUrl: 'app/components/recherche/recherche.vw.html',
-                  controller: 'rechercheCtrl',
-                  label: 'Recherche'
-         }).when('/documentation', {
-                  templateUrl: 'app/components/documentation/documentation.vw.html',
-                  controller: 'documentationCtrl',
-                  label: 'Documentation'
-         }).when('/apropos', {
-                  templateUrl: 'app/components/apropos/apropos.vw.html',
-                  controller: 'aproposCtrl',
-                  label: 'A propos'
-         }).when('/error404', {
-                  templateUrl: 'app/components/erreurs/error404.vw.html',
-                  label: 'Erreur 404'
-         }).otherwise({
-                  redirectTo: '/'
-         });
-         
-         //$locationProvider.html5Mode(true);
+    $routeProvider.when('/home',
+        {
+            templateUrl: 'app/components/home/home.vw.html'
+        }
+    ).when('/documentation',
+        {
+            templateUrl: 'app/components/documentation/documentation.vw.html'
+        }
+    ).when('/documentation/hardware',
+        {
+            templateUrl: 'app/components/documentation/hardware/hardware.vw.html'
+        }
+    ).when('/documentation/software',
+        {
+            templateUrl: 'app/components/documentation/software/software.vw.html'
+        }
+    ).when('/engine',
+        {
+            templateUrl: 'app/components/engine/engine.vw.html'
+        }
+    ).when('/map',
+        {
+            templateUrl: 'app/components/map/map.vw.html'
+        }
+    ).when('/project',
+        {
+            templateUrl: 'app/components/project/project.vw.html',
+            controller: 'ProjectCtrl'
+        }
+    ).when('/about',
+        {
+            templateUrl: 'app/components/about/about.vw.html'
+        }
+    ).otherwise(
+        {
+            redirectTo: '/home'
+        }
+    );
 
-});
+}]);
