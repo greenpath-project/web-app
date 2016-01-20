@@ -1,0 +1,42 @@
+/*********
+	CAPTURES
+*********/
+Récupérer toutes les captures :
+GET /api/captures/
+
+type de retour image : get_api_captures.png
+
+Récupère les captures correspondant à la recherche effectuée
+GET /api/captures/releve/
+
+type de réponse image : get_api_captures_releve.png
+
+Afin de passer les critères de recherche procéder comme dans l'exemple
+ex :
+	var config = {
+		params: {
+			ville:"Bordeaux",
+			departement:"Gironde"
+		}
+	}
+	$http.get('/api/captures/releve',config).success(function(data){
+		console.log(data);
+	});
+
+Enregistrement d'une capture
+POST /api/captures/
+
+/*********
+	VILLES
+*********/
+Récupérer toutes les villes
+GET /api/villes/
+
+type de retour image : get_api_villes.png
+/*********
+	DEPARTEMENT
+*********/
+Récupérer tous les départements
+GET /api/departements
+
+type de retour image : get_api_departements.png
