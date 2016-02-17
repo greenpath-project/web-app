@@ -12,7 +12,8 @@ var CaptureSchema = new Schema({
 	son:Number,
 	co2:Number,
 	ville:String,
-	departement:String
+	departement:String,
+	date:String
 });
 
 module.exports = mongoose.model('Capture', CaptureSchema);
