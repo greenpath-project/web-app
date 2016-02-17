@@ -9,8 +9,11 @@
             <div class="row center">
 
                 <div class="input-field col s6 offset-s1">
-                    <input id="recherche_input" type="text" class="validate">
-                    <label for="recherche_input" class="white-text">Ville / Commune / Département</label>
+                    <input id="recherche_input" type="text" class="validate" ng-model="input" ng-change="onChangeInput()" list="data">
+                    <label for="recherche_input" class="white-text">Villes / Départements</label>
+                    <datalist id="data">
+                        <option ng-repeat="result in resultSearch track by $index" value="{{result}}"></option>
+                    </datalist>
                 </div>
 
                 <button class="btn waves-effect waves-light green btn-large" type="submit" name="action">Rechercher

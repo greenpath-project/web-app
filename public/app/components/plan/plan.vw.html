@@ -1,0 +1,20 @@
+<div class="container">
+
+    <span class="container-title"><i class="large material-icons">list</i><h1>Plan du site</h1></span>
+
+    <div ng-repeat="card in cards">
+        <div class="divider"></div>
+        <div class="section">
+            <h5>{{card.title}}</h5>
+            <p class="text-section">{{card.shorttext}}</p>
+            <a class="waves-effect waves-light btn green" ng-href="{{card.url}}">Voir plus...</a>
+            <div ng-repeat="child in card.children" ng-if="card.children.length != 0" class="section" style="margin-left:5%;">
+                <h6>{{child.title}}</h6>
+                <p class="text-section">{{child.shorttext}}</p>
+                <a class="waves-effect waves-light btn green" ng-href="{{child.url}}">Voir plus...</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,12 +1,13 @@
 <div class="container">
 
-    <h1>Documentation</h1>
+    <span class="container-title"><i class="large material-icons">receipt</i><h1>Documentation</h1></span>
 
     <div ng-repeat="section in sections">
         <div class="divider"></div>
         <div class="section">
             <h5>{{section.name}}</h5>
             <p class="text-section">{{section.text}}</p>
+            <a class="waves-effect waves-light btn green" ng-href="{{section.hyperlink}}">Voir plus...</a>
         </div>
     </div>
 

@@ -12,7 +12,7 @@ var validationError = function(res, err) {
 
 //Récupère toutes les villes
 exports.getAll = function(req,res,next){
-  Ville.find({},{nom:1,code_postal:1}).exec(function(err,villes){
+  Ville.find({},{nom:1,code:1}).exec(function(err,villes){
     if(err)
       return res.send(404,err);
     else

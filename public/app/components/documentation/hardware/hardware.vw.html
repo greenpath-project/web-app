@@ -1,3 +1,13 @@
 <div class="container">
-    <h1>Hardware</h1>
+
+    <h1>Le matériel</h1>
+
+    <div ng-repeat="section in sections">
+        <div class="divider"></div>
+        <div class="section">
+            <h5>{{section.name}}</h5>
+            <p class="text-section">{{section.text}}</p>
+        </div>
+    </div>
+
 </div>
