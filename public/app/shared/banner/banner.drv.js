@@ -22,15 +22,10 @@ angular.module('greenPathApp').directive('mzBanner', ['$q', function($q){
 
                     if (scope.input.length >= 3) {
                         scope.data.forEach(function (data) {
-                            if (data.nom.substring(0, scope.input.length) ==  scope.input) {
 
-                                if (data.code != undefined) {
-                                    scope.resultSearch.push(data.code + ' - ' + data.nom);
-                                }
-                                else if (data.code_postal != undefined) {
-                                    scope.resultSearch.push(data.code_postal + ' - ' + data.nom);
-
-                                }
+                            if (data.nom.substring(0, scope.input.length) ==  scope.input ||
+                                data.code != undefined && data.code.toString().substring(0, scope.input.length) ==  scope.input) {
+                                scope.resultSearch.push(data.code + ' - ' + data.nom);
                             }
 
                         });
