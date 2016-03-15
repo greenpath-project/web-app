@@ -29,7 +29,7 @@ exports.getWithCode = function(req,res,next){
 
 	if(critere.code!==undefined && departement_code !== NaN){
 		departement_code = critere.code
-		Departement.find({code:departement_code.*/}).exec(function(err,departements){
+		Departement.find({code:/departement_code./}).exec(function(err,departements){
 			if(err)
 				return res.send(404,err);
 			else
@@ -44,7 +44,7 @@ exports.getWithBeginName = function(req,res,next){
 	var departement_nom = critere.nom;
 
 	if(critere.nom!==undefined && typeof critere.nom === "string"){
-		Departement.find({nom:departement_nom.*/}).exec(function(err,departements){
+		Departement.find({nom:/departement_nom./}).exec(function(err,departements){
 			if(err)
 				return res.send(404,err);
 			else

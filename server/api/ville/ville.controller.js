@@ -29,7 +29,7 @@ exports.getWithCode = function(req,res,next){
 
 	if(critere.code!==undefined && ville_code !== NaN){
 		ville_code = critere.code
-		Ville.find({code:ville_code.*/}).exec(function(err,villes){
+		Ville.find({code:/ville_code./}).exec(function(err,villes){
 			if(err)
 				return res.send(404,err);
 			else
@@ -44,7 +44,7 @@ exports.getWithBeginName = function(req,res,next){
 	var ville_nom = critere.nom;
 
 	if(critere.nom!==undefined && typeof critere.nom === "string"){
-		Ville.find({nom:ville_nom.*/}).exec(function(err,villes){
+		Ville.find({nom:/ville_nom./}).exec(function(err,villes){
 			if(err)
 				return res.send(404,err);
 			else
