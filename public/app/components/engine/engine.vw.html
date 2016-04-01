@@ -13,28 +13,28 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="latitude" type="text" class="validate">
+                            <input id="latitude" type="text" class="validate" ng-model="latitude" ng-change="onChangeInput()">
                             <label for="latitude">Latitude</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="longitude" type="text" class="validate">
+                            <input id="longitude" type="text" class="validate" ng-model="longitude" ng-change="onChangeInput()">
                             <label for="longitude">Longitude</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="ville" type="text" class="validate">
+                            <input id="ville" type="text" class="validate" ng-model="ville" ng-change="onChangeInput()">
                             <label for="ville">Ville</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="departement" type="text" class="validate">
+                            <input id="departement" type="text" class="validate" ng-model="departement" ng-change="onChangeInput()">
                             <label for="departement">Département</label>
                         </div>
                     </div>
@@ -51,27 +51,29 @@
             <table>
                 <thead>
                 <tr>
-                    <th data-field="id">Name</th>
-                    <th data-field="name">Item Name</th>
-                    <th data-field="price">Item Price</th>
+                    <th data-field="dep">Département</th>
+                    <th data-field="v">Ville</th>
+                    <th data-field="t">Température</th>
+                    <th data-field="h">Humidité</th>
+                    <th data-field="s">Son</th>
+                    <th data-field="c">CO2</th>
+                    <th data-field="date">Date</th>
+                    <th data-field="la">Latitude</th>
+                    <th data-field="lo">Longitude</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>Jellybean</td>
-                    <td>$3.76</td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>Lollipop</td>
-                    <td>$7.00</td>
+                <tr ng-repeat="result in resultSearch">
+                    <td>{{result.departement}}</td>
+                    <td>{{result.ville}}</td>
+                    <td>{{result.temperature}}</td>
+                    <td>{{result.humidite}}</td>
+                    <td>{{result.son}}</td>
+                    <td>{{result.co2}}</td>
+                    <td>{{result.date}}</td>
+                    <td>{{result.lat}}</td>
+                    <td>{{result.lng}}</td>
                 </tr>
                 </tbody>
             </table>
