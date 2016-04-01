@@ -27,9 +27,8 @@ exports.getWithCode = function(req,res,next){
 	//On incrémente code afin de déterminer si les données sont bien des number
 	departement_code++;
 
-	if(critere.code!==undefined && departement_code !== NaN){
-		departement_code = critere.code
-		Departement.find({code:/departement_code./}).exec(function(err,departements){
+	if(critere.code!==undefined && !isNaN(departement_code)){
+		Departement.find({code:new RegExp('^'+critere.code+'')}).exec(function(err,departements){
 			if(err)
 				return res.send(404,err);
 			else
@@ -44,7 +43,7 @@ exports.getWithBeginName = function(req,res,next){
 	var departement_nom = critere.nom;
 
 	if(critere.nom!==undefined && typeof critere.nom === "string"){
-		Departement.find({nom:/departement_nom./}).exec(function(err,departements){
+		Departement.find({nom:new RegExp('^'+departement_nom+'')}).exec(function(err,departements){
 			if(err)
 				return res.send(404,err);
 			else

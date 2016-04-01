@@ -26,10 +26,8 @@ exports.getWithCode = function(req,res,next){
 	var ville_code = critere.code;
 	//On incrémente code afin de déterminer si les données sont bien des number
 	ville_code++;
-
-	if(critere.code!==undefined && ville_code !== NaN){
-		ville_code = critere.code
-		Ville.find({code:/ville_code./}).exec(function(err,villes){
+	if(critere.code!==undefined && !isNaN(ville_code)){
+		Ville.find({code:new RegExp('^'+critere.code+'')}).exec(function(err,villes){
 			if(err)
 				return res.send(404,err);
 			else
@@ -42,9 +40,8 @@ exports.getWithCode = function(req,res,next){
 exports.getWithBeginName = function(req,res,next){
 	var critere = req.query;
 	var ville_nom = critere.nom;
-
 	if(critere.nom!==undefined && typeof critere.nom === "string"){
-		Ville.find({nom:/ville_nom./}).exec(function(err,villes){
+		Ville.find({nom:new RegExp('^'+ville_nom+'')}).exec(function(err,villes){
 			if(err)
 				return res.send(404,err);
 			else

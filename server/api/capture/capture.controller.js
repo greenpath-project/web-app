@@ -49,32 +49,47 @@ exports.search = function(req,res,next){
 	capteur_lng++;
 	capteur_lat++;
 
-	if(critere.lng!==undefined || critere.lat!==undefined){
-		if(capteur_lng !== NaN && critere.lng!==undefined)
+	if(critere.lng!=="" || critere.lat!==""){
+		if(capteur_lng !== NaN && critere.lng!=="" && critere.lat==""){
 			capteur_lng = critere.lng;
-		else
-			capteur_lng = "";
-		if(capteur_lat !== NaN && critere.lat!==undefined)
+			Capture.find({lng:capteur_lng}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
+		}
+			
+		else if(capteur_lat !== NaN && critere.lat!=="" && critere.lng==""){
 			capteur_lat = critere.lat;
-		else
-			capteur_lat = "";
-		Capture.find({lng:capteur_lng,lat:capteur_lat}).exec(function(err,captures){
+			Capture.find({lat:capteur_lat}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
+		}
+		else{
+			capteur_lng = critere.lng;
+			capteur_lat = critere.lat;
+			Capture.find({lng:capteur_lng,lat:capteur_lat}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
+		}
+	}
+	else if(typeof critere.ville === "string" && critere.ville!==capteur_ville){
+		Capture.find({ville:new RegExp('^'+critere.ville+'')}).exec(function(err,captures){
 			if(err)
 				return res.send(404,err);
 			else
 				return res.json(captures);
 		});
 	}
-	else if(typeof critere.ville === "string" && critere.ville!==undefined){
-		Capture.find({ville:critere.ville}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
-	}
-	else if(typeof critere.departement === "string" && critere.departement!==undefined){
-		Capture.find({departement:critere.departement}).exec(function(err,captures){
+	else if(typeof critere.departement === "string" && critere.departement!==capteur_departement){
+		Capture.find({departement:new RegExp('^'+critere.departement+'')}).exec(function(err,captures){
 			if(err)
 				return res.send(404,err);
 			else
