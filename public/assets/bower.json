@@ -21,6 +21,7 @@
     "angular-resource": "~1.4.9",
     "angular-route": "~1.4.9",
     "Materialize": "materialize#~0.97.5",
-    "jquery": "~2.2.0"
+    "jquery": "~2.2.0",
+    "jquery-ui":"~1.11.4"
   }
 }
