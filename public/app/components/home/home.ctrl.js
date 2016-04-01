@@ -1,6 +1,6 @@
 angular.module('greenPathApp').controller('HomeCtrl', ['$scope', 'Home', function($scope, Home){
 
-    $scope.villesDepts = [];
+    /**$scope.villesDepts = [];
 
     Home.queryDepartements(function(depts){
 
@@ -8,6 +8,6 @@ angular.module('greenPathApp').controller('HomeCtrl', ['$scope', 'Home', functio
 
             $scope.villesDepts = depts.concat(villes);
         });
-    });
+    });**/
 
 }]);

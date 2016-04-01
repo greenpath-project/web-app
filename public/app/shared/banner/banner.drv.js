@@ -1,4 +1,4 @@
-angular.module('greenPathApp').directive('mzBanner', ['$q', function($q){
+angular.module('greenPathApp').directive('mzBanner', ['$q','$http', function($q,$http){
     return {
         restrict: 'E',
         replace: true,
@@ -20,15 +20,42 @@ angular.module('greenPathApp').directive('mzBanner', ['$q', function($q){
 
                     scope.resultSearch.length = 0;
 
-                    if (scope.input.length >= 3) {
-                        scope.data.forEach(function (data) {
+                    console.log(scope.resultSearch);
 
-                            if (data.nom.substring(0, scope.input.length) ==  scope.input ||
-                                data.code != undefined && data.code.toString().substring(0, scope.input.length) ==  scope.input) {
-                                scope.resultSearch.push(data.code + ' - ' + data.nom);
+                    if (scope.input.length >= 3) {
+                        var parse  = parseInt(scope.input);
+
+                        if(isNaN(parse)){
+                            var nom = scope.input;
+                            scope.input = nom.charAt(0).toUpperCase() + nom.substring(1).toLowerCase();
+
+                            var config = {
+                                params: {
+                                    nom:scope.input
+                                }
+                            }
+                        
+                            $http.get('/api/villes/nom',config)
+                                .success(function(data){
+                                    data.forEach(function(ville){
+                                        scope.resultSearch.push(ville.code + ' - ' + ville.nom);
+                                    });
+                                });
+                        }
+                        else{
+                            var config = {
+                                params: {
+                                    code:scope.input
+                                }
                             }
 
-                        });
+                            $http.get('/api/villes/code',config)
+                                .success(function(data){
+                                    data.forEach(function(ville){
+                                        scope.resultSearch.push(ville.code + ' - ' + ville.nom);
+                                    });
+                                });
+                        }                       
                     }
 
                 });
