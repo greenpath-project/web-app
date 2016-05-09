@@ -43,53 +43,58 @@ exports.search = function(req,res,next){
 	var capteur_dateFin = critere.dateFin;
 	var capteur_ville = "";
 	var capteur_departement = "";
+	var query = "";
 
-	/*if(capteur_dateDeb!=="" || capteur_dateFin==""){
-		Capture.find({date:capteur_dateDeb}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
+	//Traitement de la date
+	if(capteur_dateDeb!==""){
+		date = capteur_dateDeb.split('-');
+		year = date[0];
+		month = date[1];
+		day = date[2];
+		capteur_dateDeb = day + "/" + month + "/" + year;
 	}
-	else if(capteur_dateDeb=="" || capteur_dateFin!==""){
-		capteur_lat = critere.lat;
-		Capture.find({lat:capteur_lat}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
-	}
-	else if(capteur_dateDeb!=="" || capteur_dateFin!==""){
-		capteur_lng = critere.lng;
-		capteur_lat = critere.lat;
-		Capture.find({lng:capteur_lng,lat:capteur_lat}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
-	}
-	else if(typeof critere.ville === "string" && critere.ville!==capteur_ville){
-		Capture.find({ville:new RegExp('^'+critere.ville+'')}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
-	}
-	else if(typeof critere.departement === "string" && critere.departement!==capteur_departement){
-		Capture.find({departement:new RegExp('^'+critere.departement+'')}).exec(function(err,captures){
-			if(err)
-				return res.send(404,err);
-			else
-				return res.json(captures);
-		});
+	if(capteur_dateFin!==""){
+		date = capteur_dateFin.split('-');
+		year = date[0];
+		month = date[1];
+		day = date[2];
+		capteur_dateFin = day + "/" + month + "/" + year;
 	}
 	else{
-		return res.send(404,"Critère de recherche incorrectes");
-	}*/
+		var d = new Date();
+		var day = d.getDate();
+		var month = d.getMonth() + 1;
+		var year = d.getFullYear();
+		if(month<10){
+			month = '0' + month;
+		}
+		capteur_dateFin = day + '/' + month + '/' + year;	
+	}
+
+	//Recherche
+	if(capteur_dateDeb=="" && capteur_dateFin!==""){
+		if(capteur_ville!==""){
+			query = Capture.find({ville:capteur_ville,date:{$lt:capteur_dateFin}});
+		}
+		else{
+			query = Capture.find({departement:capteur_departement,date:{$lt:capteur_dateFin}});
+		}
+	}
+	else{
+		if(capteur_ville!==""){
+			query = Capture.find({ville:capteur_ville,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}});
+		}
+		else{
+			query = Capture.find({departement:capteur_departement,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}});
+		}
+	}
+
+	query.exec(function(err,captures){
+		if(err)
+			return res.send(404,err);
+		else
+			return res.json(captures);
+	});
 };
 
 //Enregistrement d'une capture
