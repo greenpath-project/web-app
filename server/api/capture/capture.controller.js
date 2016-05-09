@@ -39,46 +39,37 @@ exports.getAll = function(req,res,next){
 exports.search = function(req,res,next){
 	//Récupération des critères de recherche
 	var critere = req.query;
-	var capteur_lng = critere.lng;
-	var capteur_lat = critere.lat;
+	var capteur_dateDeb = critere.dateDeb;
+	var capteur_dateFin = critere.dateFin;
 	var capteur_ville = "";
 	var capteur_departement = "";
-	var capteur_region = "";
 
-	//On incrémente lng et lat afin de déterminer si les données sont bien des number
-	capteur_lng++;
-	capteur_lat++;
-
-	if(critere.lng!=="" || critere.lat!==""){
-		if(capteur_lng !== NaN && critere.lng!=="" && critere.lat==""){
-			capteur_lng = critere.lng;
-			Capture.find({lng:capteur_lng}).exec(function(err,captures){
-				if(err)
-					return res.send(404,err);
-				else
-					return res.json(captures);
-			});
-		}
-			
-		else if(capteur_lat !== NaN && critere.lat!=="" && critere.lng==""){
-			capteur_lat = critere.lat;
-			Capture.find({lat:capteur_lat}).exec(function(err,captures){
-				if(err)
-					return res.send(404,err);
-				else
-					return res.json(captures);
-			});
-		}
-		else{
-			capteur_lng = critere.lng;
-			capteur_lat = critere.lat;
-			Capture.find({lng:capteur_lng,lat:capteur_lat}).exec(function(err,captures){
-				if(err)
-					return res.send(404,err);
-				else
-					return res.json(captures);
-			});
-		}
+	/*if(capteur_dateDeb!=="" || capteur_dateFin==""){
+		Capture.find({date:capteur_dateDeb}).exec(function(err,captures){
+			if(err)
+				return res.send(404,err);
+			else
+				return res.json(captures);
+		});
+	}
+	else if(capteur_dateDeb=="" || capteur_dateFin!==""){
+		capteur_lat = critere.lat;
+		Capture.find({lat:capteur_lat}).exec(function(err,captures){
+			if(err)
+				return res.send(404,err);
+			else
+				return res.json(captures);
+		});
+	}
+	else if(capteur_dateDeb!=="" || capteur_dateFin!==""){
+		capteur_lng = critere.lng;
+		capteur_lat = critere.lat;
+		Capture.find({lng:capteur_lng,lat:capteur_lat}).exec(function(err,captures){
+			if(err)
+				return res.send(404,err);
+			else
+				return res.json(captures);
+		});
 	}
 	else if(typeof critere.ville === "string" && critere.ville!==capteur_ville){
 		Capture.find({ville:new RegExp('^'+critere.ville+'')}).exec(function(err,captures){
@@ -98,7 +89,7 @@ exports.search = function(req,res,next){
 	}
 	else{
 		return res.send(404,"Critère de recherche incorrectes");
-	}
+	}*/
 };
 
 //Enregistrement d'une capture

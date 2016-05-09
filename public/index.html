@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Green Path</title>
-
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="assets/bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet">
         <link href="assets/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet">
+        <link href="assets/css/ol.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -14,15 +14,10 @@
     <body id="id" ng-app="greenPathApp">
 
         <div ng-controller="MainCtrl">
-
             <mz-header cards="cards"></mz-header>
-
             <ng-view></ng-view>
-
             <mz-footer></mz-footer>
-
             <mz-top-button></mz-top-button>
-
         </div>
 
         <!-- Vendors -->
@@ -33,6 +28,8 @@
         <script src="./assets/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="./assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
         <script src="./assets/bower_components/Materialize/dist/js/materialize.min.js"></script>
+        <script src="./assets/js/ol.js"></script>
+
 
         <!-- Angular App -->
         <script src="./app/app.module.js"></script>
