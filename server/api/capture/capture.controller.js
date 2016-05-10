@@ -43,21 +43,20 @@ exports.search = function(req,res,next){
 	var capteur_dateFin = critere.dateFin;
 	var capteur_ville = "";
 	var capteur_departement = "";
-	var query = "";
 
 	//Traitement de la date
 	if(capteur_dateDeb!==""){
-		date = capteur_dateDeb.split('-');
-		year = date[0];
-		month = date[1];
-		day = date[2];
+		var date = capteur_dateDeb.split('-');
+		var year = date[0];
+		var month = date[1];
+		var day = date[2];
 		capteur_dateDeb = day + "/" + month + "/" + year;
 	}
 	if(capteur_dateFin!==""){
-		date = capteur_dateFin.split('-');
-		year = date[0];
-		month = date[1];
-		day = date[2];
+		var date = capteur_dateFin.split('-');
+		var year = date[0];
+		var month = date[1];
+		var day = date[2];
 		capteur_dateFin = day + "/" + month + "/" + year;
 	}
 	else{
@@ -74,27 +73,40 @@ exports.search = function(req,res,next){
 	//Recherche
 	if(capteur_dateDeb=="" && capteur_dateFin!==""){
 		if(capteur_ville!==""){
-			query = Capture.find({ville:capteur_ville,date:{$lt:capteur_dateFin}});
+			Capture.find({ville:capteur_ville}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
 		}
 		else{
-			query = Capture.find({departement:capteur_departement,date:{$lt:capteur_dateFin}});
+			Capture.find({departement:capteur_departement}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
 		}
 	}
 	else{
 		if(capteur_ville!==""){
-			query = Capture.find({ville:capteur_ville,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}});
+			Capture.find({ville:capteur_ville,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
 		}
 		else{
-			query = Capture.find({departement:capteur_departement,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}});
+			Capture.find({departement:capteur_departement,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}}).exec(function(err,captures){
+				if(err)
+					return res.send(404,err);
+				else
+					return res.json(captures);
+			});
 		}
 	}
-
-	query.exec(function(err,captures){
-		if(err)
-			return res.send(404,err);
-		else
-			return res.json(captures);
-	});
 };
 
 //Enregistrement d'une capture

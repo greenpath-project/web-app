@@ -7,8 +7,8 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope', 'Engine','$ht
     })
 
     $scope.resultSearch = [];
-    $scope.dateFin = new Date();
-    $scope.dateDeb = new Date();
+    $scope.dateFin = "";
+    $scope.dateDeb = "";
     $scope.ville = "";
     $scope.departement = "";
 
@@ -25,6 +25,8 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope', 'Engine','$ht
                 }
             }
 
+            console.log(JSON.stringify(config));
+
             $http.get('/api/captures/releve', config).success(function (data) {
                 console.log(data);
                 data.forEach(function (capture) {
@@ -34,7 +36,7 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope', 'Engine','$ht
         }
     }
 
-    $scope.reset = function(){
+    $scope.resetInputs = function(){
         $scope.resultSearch = [];
         $scope.dateDeb ="";
         $scope.dateFin ="";

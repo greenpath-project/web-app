@@ -22,12 +22,12 @@
 
                         <div class="input-field col s12 m6">
                             <input id="dateDeb"  type="date" class="datepicker" ng-model="dateDeb">
-                            <label for="dateDeb" class="active">Date de début</label>
+                            <label for="dateDeb" class="">Date de début</label>
                         </div>
 
                         <div class="input-field col s12 m6">
                             <input id="dateFin" type="date" class="datepicker" ng-model="dateFin">
-                            <label for="dateFin" class="active">Date de fin</label>
+                            <label for="dateFin" class="">Date de fin</label>
                         </div>
 
                     </div>
@@ -35,8 +35,8 @@
                 </div>
 
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn green"><i class="material-icons left" ng-click="launchSearch()">search</i>Rechercher</a>
-                    <a class="waves-effect waves-light btn green"><i class="material-icons right" ng-click="reset()">not_interested</i>Annuler</a>
+                    <a class="waves-effect waves-light btn green" ng-click="launchSearch()"><i class="material-icons left">search</i>Rechercher</a>
+                    <a class="waves-effect waves-light btn green" ng-click="resetInputs()"><i class="material-icons right" >not_interested</i>Annuler</a>
                 </div>
             </div>
         </div>
