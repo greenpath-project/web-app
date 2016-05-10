@@ -105,8 +105,18 @@ div.icon-block{
 
 span.container-title i {
     position: absolute;
-    margin-top: -10px;
-    margin-left: -10px;
+    margin-left: -30px;
+    margin-top: 20px;
+}
+
+span.container-title h5 {
+    margin-left: 30px;
+    position: static;
+    margin-top: 0px;
+}
+
+span.container-title{
+    margin-left: 25px;
 }
 
 span.container-title h1 {

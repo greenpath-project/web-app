@@ -1,4 +1,4 @@
-angular.module('greenPathApp').controller('EngineCtrl', ['$scope', 'Engine','$http', function($scope, Engine,$http){
+angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', 'Engine', function($scope, $http, Engine){
 
     $('.datepicker').pickadate({
         selectMonths: true,

@@ -8,7 +8,8 @@
     "imgUrl": "./assets/img/paralax/maps2.jpg",
     "ico": "./assets/img/ico/map.png",
     "showIcon": true,
-    "isAnchor": true
+    "isAnchor": true,
+    "iconPage": ""
   },
   {
     "title": "Moteur De Recherche",
@@ -19,7 +20,8 @@
     "imgUrl": "./assets/img/paralax/recherche.jpg",
     "ico": "./assets/img/ico/engine.png",
     "showIcon": true,
-    "isAnchor": true
+    "isAnchor": true,
+    "iconPage": ""
   },
   {
     "title": "Projet",
@@ -30,7 +32,8 @@
     "imgUrl": "./assets/img/paralax/projet.jpg",
     "ico": "./assets/img/ico/project.png",
     "showIcon": true,
-    "isAnchor": true
+    "isAnchor": true,
+    "iconPage": ""
   },
   {
     "title": "Documentation",
@@ -41,16 +44,19 @@
     "imgUrl": "./assets/img/paralax/documentation.jpg",
     "showIcon": false,
     "isAnchor": true,
+    "iconPage": "receipt",
     "children": [
       {
         "title": "Logiciel",
         "url": "#/documentation/software",
-        "shorttext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor."
+        "shorttext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
+        "iconPage": ""
       },
       {
         "title": "Matériel",
         "url": "#/documentation/hardware",
-        "shorttext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor."
+        "shorttext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.",
+        "iconPage": ""
       }
     ]
   }

@@ -12,9 +12,7 @@
                     <input id="recherche_input" type="text" class="validate" ng-model="input" ng-change="onChangeInput()" list="data">
                     <label for="recherche_input" class="white-text">Villes / Départements</label>
                     <datalist id="data">
-                       <!-- <option ng-repeat="result in resultSearch track by $index" value="{{result}}"></option>-->
                         <option ng-repeat="result in resultSearch" value="{{result}}"></option>
-
                     </datalist>
                 </div>
 
