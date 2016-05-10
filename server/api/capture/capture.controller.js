@@ -41,8 +41,8 @@ exports.search = function(req,res,next){
 	var critere = req.query;
 	var capteur_dateDeb = critere.dateDeb;
 	var capteur_dateFin = critere.dateFin;
-	var capteur_ville = "";
-	var capteur_departement = "";
+	var capteur_ville = critere.ville;
+	var capteur_departement = critere.departement;
 
 	//Traitement de la date
 	if(capteur_dateDeb!==""){
@@ -59,19 +59,9 @@ exports.search = function(req,res,next){
 		var day = date[2];
 		capteur_dateFin = day + "/" + month + "/" + year;
 	}
-	else{
-		var d = new Date();
-		var day = d.getDate();
-		var month = d.getMonth() + 1;
-		var year = d.getFullYear();
-		if(month<10){
-			month = '0' + month;
-		}
-		capteur_dateFin = day + '/' + month + '/' + year;	
-	}
 
 	//Recherche
-	if(capteur_dateDeb=="" && capteur_dateFin!==""){
+	if(capteur_dateDeb=="" && capteur_dateFin==""){
 		if(capteur_ville!==""){
 			Capture.find({ville:capteur_ville}).exec(function(err,captures){
 				if(err)
@@ -80,13 +70,16 @@ exports.search = function(req,res,next){
 					return res.json(captures);
 			});
 		}
-		else{
+		else if(capteur_departement!==""){
 			Capture.find({departement:capteur_departement}).exec(function(err,captures){
 				if(err)
 					return res.send(404,err);
 				else
 					return res.json(captures);
 			});
+		}
+		else{
+			return res.send(404,'Données incorrectes');
 		}
 	}
 	else{
@@ -98,13 +91,16 @@ exports.search = function(req,res,next){
 					return res.json(captures);
 			});
 		}
-		else{
+		else if(capteur_departement!==""){
 			Capture.find({departement:capteur_departement,date:{$gt:capteur_dateDeb,$lt:capteur_dateFin}}).exec(function(err,captures){
 				if(err)
 					return res.send(404,err);
 				else
 					return res.json(captures);
 			});
+		}
+		else{
+			return res.send(404,'Données incorrectes');
 		}
 	}
 };
