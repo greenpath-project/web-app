@@ -126,3 +126,7 @@ span.container-title h1 {
 .container{
     margin-bottom:30px;
 }
+
+.pagination li.active {
+    background-color: #4CAF50;
+}

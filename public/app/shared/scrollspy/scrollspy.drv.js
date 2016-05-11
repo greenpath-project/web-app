@@ -9,7 +9,7 @@ angular.module('greenPathApp').directive('mzScrollspy', [function(){
         link: function(scope, element, attrs){
 
             scope.gotoAnchor  = function(anchor){
-                $('html, body').animate({scrollTop: $('#'+anchor).position().top},800);
+                $('html, body').animate({scrollTop: $('#'+anchor).position().top},2000);
                 return false;
             }
 

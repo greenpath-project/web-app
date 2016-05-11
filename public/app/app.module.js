@@ -1,1 +1,1 @@
-angular.module('greenPathApp', ['ngRoute', 'ngResource', 'ngAnimate']);
+angular.module('greenPathApp', ['ngRoute', 'ngResource', 'ngAnimate', 'angular-repeat-n']);

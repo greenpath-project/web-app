@@ -2,7 +2,7 @@
 
     <mz-page-title title="Moteur de recherche" icon="search"></mz-page-title>
 
-    <div class="row">
+    <form class="row"  ng-submit="launchSearch(0)">
         <div class="col s12 m12">
             <div class="card white">
                 <div class="card-content">
@@ -11,7 +11,7 @@
                     <div class="row">
 
                         <div class="input-field col s12 m6">
-                            <input id="departement" type="text" class="validate" ng-model="departement" ng-click="selectDep()" >
+                            <input  id="departement" type="text" class="validate" ng-model="departement" ng-click="selectDep()" >
                             <label for="departement">Département</label>
                         </div>
 
@@ -21,13 +21,13 @@
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <input id="dateDeb"  type="date" class="datepicker" ng-model="dateDeb">
-                            <label for="dateDeb" class="">Date de début</label>
+                            <mz-datepicker id="dateDeb" date="dateDeb"></mz-datepicker>
+                            <label for="dateDeb" class="active">Date de début</label>
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <input id="dateFin" type="date" class="datepicker" ng-model="dateFin">
-                            <label for="dateFin" class="">Date de fin</label>
+                            <mz-datepicker id="dateFin" date="dateFin">Date de fin</mz-datepicker>
+                            <label for="dateFin" class="active">Date de fin</label>
                         </div>
 
                     </div>
@@ -35,14 +35,15 @@
                 </div>
 
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn green" ng-click="launchSearch()"><i class="material-icons left">search</i>Rechercher</a>
+                    <a class="waves-effect waves-light btn green" ng-click="launchSearch(0)"><i class="material-icons left">search</i>Rechercher</a>
+                    <input type="submit" style="display: none">
                     <a class="waves-effect waves-light btn green" ng-click="resetInputs()"><i class="material-icons right" >not_interested</i>Annuler</a>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
-    <div class="col s12 m12">
+    <div class="col s12 m12" ng-if="resultSearch.length != 0">
 
         <table>
             <thead>
@@ -60,19 +61,21 @@
             </thead>
 
             <tbody>
-            <tr ng-repeat="result in resultSearch">
+            <tr  ng-repeat="result in resultSearch">
+                <td>{{result.date}}</td>
                 <td>{{result.departement}}</td>
                 <td>{{result.ville}}</td>
-                <td>{{result.temperature}}</td>
-                <td>{{result.humidite}}</td>
-                <td>{{result.son}}</td>
-                <td>{{result.co2}}</td>
-                <td>{{result.date}}</td>
-                <td>{{result.lat}}</td>
-                <td>{{result.lng}}</td>
+                <td>{{formatNumber(result.temperature)}}</td>
+                <td>{{formatNumber(result.humidite)}}</td>
+                <td>{{formatNumber(result.son)}}</td>
+                <td>{{formatNumber(result.co2)}}</td>
+                <td>{{formatNumber(result.lat)}}</td>
+                <td>{{formatNumber(result.lng)}}</td>
             </tr>
             </tbody>
         </table>
+
+        <mz-pagination pages="nbPages" action="changePage(index)"></mz-pagination>
 
     </div>
 
