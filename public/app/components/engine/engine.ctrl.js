@@ -1,45 +1,18 @@
-angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', 'Engine', function($scope, $http, Engine){
+angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$timeout', 'Engine', function($scope, $http, $timeout, Engine){
 
     $scope.resultSearch = [];
     $scope.dateFin = "";
     $scope.dateDeb = "";
     $scope.ville = "";
     $scope.departement = "";
-    $scope.nbPages = 1;
+    $scope.nbPages = 0;
     $scope.limit = 20;
+    $scope.nbCaptures = 0;
+    $scope.searchLaunch = false;
 
     $scope.launchSearch = function (skip) {
+
         $scope.resultSearch.length = 0;
-
-        if($scope.dateFin == ""){
-            var d = new Date();
-            var jour = "";
-            var mois = "";
-            var annee = d.getFullYear();
-
-            var monthTmp = d.getMonth() + 1;
-
-            if(monthTmp < 10){
-                mois = '0' + monthTmp;
-            }
-            else{
-                mois = monthTmp;
-            }
-
-            if(d.getDate() < 10){
-                jour = '0' + d.getDate();
-            }
-            else{
-                jour = d.getDate();
-            }
-
-            var date = '31/' + mois + '/' + annee;
-            $scope.dateFin = date;
-        }
-
-        if($scope.dateDeb == ""){
-            $scope.dateDeb = '01/01/2000';
-        }
 
         if ($scope.ville.length != 0 || $scope.departement.length != 0) {
 
@@ -55,10 +28,22 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', 'Engi
             }
 
             $http.get('/api/captures/releve', config).success(function (data) {
+                $scope.searchLaunch = true;
                 var a = data.nbCaptures / $scope.limit;
-                $scope.nbPages = 1 +  Math.round(a * 1) / 1;
+                $scope.nbCaptures = data.nbCaptures;
+                $scope.nbPages = Math.round(a * 1) / 1;
+
+                if($scope.nbPages % 1 != 0){
+                    $scope.nbPages += 1;
+                }
+
                 data.captures.forEach(function (capture) {
                     $scope.resultSearch.push(capture);
+                });
+
+                $timeout(function(){
+                    $('html, body').animate({scrollTop: $('#datatable').position().top},1000);
+                    return false;
                 });
             });
         }
@@ -85,8 +70,9 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', 'Engi
     }
 
     $scope.changePage = function(index){
-        var skip = index * 10;
-        //$scope.launchSearch(index * 10);
+        var skip = index * $scope.limit;
+        console.log(skip);
+        $scope.launchSearch(skip);
     }
 
 }]);

@@ -7,10 +7,12 @@ angular.module('greenPathApp').directive('mzPagination', ['$timeout', function($
             action : '&'
         },
         templateUrl: 'app/shared/pagination/pagination.vw.html',
-        link: function(scope, element, attrs){
+        link: function(scope, element, attr){
 
-            $timeout(function(){
-                scope.selectLi(0);
+            scope.$watch(function() {
+                if (!element.hasClass('ng-hide')) {
+                    scope.selectLi(0);
+                }
             })
 
             scope.selectLi = function(index){

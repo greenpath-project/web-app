@@ -50,12 +50,22 @@ exports.search = function(req,res,next){
 	//Recherche
 	if(capteur_dateDeb=="" && capteur_dateFin==""){
 		console.log('Recherche sans date !');
+		var nbCaptures = 0;
 		if(capteur_ville!==""){
 			Capture.find({ville:capteur_ville}).exec(function(err,captures){
 				if(err)
 					return res.send(404,err);
 				else
-					return res.json(captures);
+					nbCaptures = captures.length;
+					Capture.find({ville:capteur_ville}).skip(capteur_skip).limit(capteur_limit).exec(function(err,captures){
+						if(err)
+							return res.send(404,err);
+						else
+							return res.json({
+								nbCaptures : nbCaptures,
+								captures : captures
+							});
+					});
 			});
 		}
 		else if(capteur_departement!==""){
@@ -63,7 +73,16 @@ exports.search = function(req,res,next){
 				if(err)
 					return res.send(404,err);
 				else
-					return res.json(captures);
+					nbCaptures = captures.length;
+					Capture.find({ville:capteur_ville}).skip(capteur_skip).limit(capteur_limit).exec(function(err,captures){
+					if(err)
+						return res.send(404,err);
+					else
+						return res.json({
+							nbCaptures : nbCaptures,
+							captures : captures
+						});
+				});
 			});
 		}
 		else{
@@ -71,17 +90,20 @@ exports.search = function(req,res,next){
 		}
 	}
 	else{
+
+		capteur_dateDeb = new Date(capteur_dateDeb);
+		capteur_dateFin = new Date(capteur_dateFin);
 		console.log('Recherche avec date !' + capteur_dateDeb + ' - ' +  capteur_dateFin);
 
 		if(capteur_ville!==""){
 			console.log('Recherche ville !');
             var nbCaptures = 0;
             Capture.find({ville:capteur_ville,date:{$gte:capteur_dateDeb,$lte:capteur_dateFin}}).exec(function(err,captures){
+				console.log(capteur_skip + ' - ' + capteur_limit);
                 if(err){
                     return res.send(404,err);
                 }else{
                     nbCaptures = captures.length;
-                    console.log(capteur_skip + ' - ' + capteur_limit);
                     Capture.find({ville:capteur_ville,date:{$gte:capteur_dateDeb,$lte:capteur_dateFin}}).skip(capteur_skip).limit(capteur_limit).exec(function(err,captures){
                         if(err){
                             console.log(JSON.stringify(err));
