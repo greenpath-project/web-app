@@ -8,11 +8,16 @@ angular.module('greenPathApp').directive('mzPagination', ['$timeout', function($
         },
         templateUrl: 'app/shared/pagination/pagination.vw.html',
         link: function(scope, element, attr){
+            scope.firstLoad = true;
 
             scope.$watch(function() {
-                if (!element.hasClass('ng-hide')) {
-                    scope.selectLi(0);
-                }
+                $timeout(function(){
+                    if (!element.hasClass('ng-hide') && scope.firstLoad == true) {
+                        scope.firstLoad = false;
+                        scope.deselectLi();
+                        scope.selectLi(0);
+                    }
+                },100)
             })
 
             scope.selectLi = function(index){
