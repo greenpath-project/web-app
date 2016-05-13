@@ -201,7 +201,7 @@ exports.create = function(req,res,next){
 		        	Departement.find({code:villes[0].departement}).exec(function(err,departements){
 		        		capture.departement = departements[0].nom;
 		        		var d = new Date();
-						capture.date = d;
+						capture.date = d.now();
 		        		capture.save(function(err,captures){
 							if(err)
 								return res.send(404,err);
