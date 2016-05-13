@@ -2,25 +2,13 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', 'Map', function(
 
     var view = new ol.View({
         center: [0, 0],
-        zoom: 2
+        zoom: 5
     });
 
     var map = new ol.Map({
         layers: [
             new ol.layer.Tile({
                 source: new ol.source.OSM()
-            }),
-            new ol.layer.Tile({
-                extent: [-13884991, 2870341, -7455066, 6338219],
-                source: new ol.source.TileWMS({
-                    url: 'http://localhost:3000/geoserver/logistique/wms',
-                    params: {'FORMAT': "image/jpeg",
-                        'VERSION': '1.1.1',
-                        tiled: false,
-                        STYLES: '',
-                        LAYERS: 'logistique:depot'
-                    }
-                })
             })
         ],
         target: 'map',
@@ -40,7 +28,7 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', 'Map', function(
         return document.getElementById(id);
     }
 
-    el('track').addEventListener('change', function() {
+    el('track').addEventListener('click', function() {
         geolocation.setTracking(this.checked);
     });
 
@@ -91,5 +79,6 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', 'Map', function(
             features: [accuracyFeature, positionFeature]
         })
     });
+
 
 }]);

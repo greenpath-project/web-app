@@ -6,6 +6,17 @@
  * Made By MaterializeCSS.com
  */
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: table;
+    width: 100%;
+}
+
 nav ul a,
 nav .brand-logo {
     color: #444;
@@ -85,7 +96,7 @@ div.pinned {
 }
 
 p.text-section {
-    text-align: center /*justify*/
+    text-align: justify;
 }
 
 .parallax img {
@@ -137,4 +148,5 @@ footer.page-footer{
 
 footer.page-footer a{
     text-decoration: underline;
+
 }

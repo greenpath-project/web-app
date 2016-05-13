@@ -14,7 +14,6 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
     $scope.launchSearch = function (skip) {
         if ($scope.ville.length != 0 || $scope.departement.length != 0) {
 
-
             $('.pagination li.active').removeClass('active').addClass('waves-effect');
             $('.pagination li#0').addClass('active').removeClass('waves-effect');
 
@@ -45,7 +44,7 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
     }
 
     $scope.resetInputs = function(){
-        $scope.resultSearch = [];
+        $scope.results = [];
         $scope.dateDeb ="";
         $scope.dateFin ="";
         $scope.ville="";

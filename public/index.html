@@ -15,7 +15,9 @@
 
         <div ng-controller="MainCtrl">
             <mz-header cards="cards"></mz-header>
-            <ng-view></ng-view>
+            <div  style="min-height: 561px;">
+                <ng-view></ng-view>
+            </div>
             <mz-footer></mz-footer>
             <mz-top-button></mz-top-button>
         </div>

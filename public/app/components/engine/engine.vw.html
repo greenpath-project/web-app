@@ -34,9 +34,15 @@
                 </div>
 
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn green" ng-click="launchSearch(0)"><i class="material-icons left">search</i>Rechercher</a>
-                    <input type="submit" style="display: none">
-                    <a class="waves-effect waves-light btn green" ng-click="resetInputs()"><i class="material-icons right" >not_interested</i>Annuler</a>
+                    <div class="row">
+                        <div class="col s6 m6">
+                            <a class="waves-effect waves-light btn green" style="float: left;" ng-click="launchSearch(0)"><i class="material-icons">search</i>Rechercher</a>
+                            <input type="submit" style="display: none">
+                        </div>
+                        <div class="col s6 m6">
+                            <a class="waves-effect waves-light btn green" style="float: right" ng-click="resetInputs()"><i class="material-icons" >not_interested</i>Annuler</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
