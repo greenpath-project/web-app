@@ -4,7 +4,6 @@ var Capture = require('./capture.model');
 var Ville = require('../ville/ville.model');
 var Departement = require('../departement/departement.model');
 
-
 //Open Street MAp
 var geocoderProvider = 'openstreetmap';
 
@@ -13,7 +12,7 @@ var httpAdapter = 'http';
 var extra = {
     language:"fr" 
 };
- 
+
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter,extra);
 
 
@@ -185,7 +184,6 @@ exports.create = function(req,res,next){
 	if(capteur_son !== NaN)
 		capture.son = critere.son;
 	else
-	capture.departement = res.state;
 		capteur_son = null;
 	if(capteur_co2 !== NaN)
 		capture.co2 = critere.co2;
