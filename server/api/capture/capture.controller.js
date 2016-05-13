@@ -4,7 +4,6 @@ var Capture = require('./capture.model');
 var Ville = require('../ville/ville.model');
 var Departement = require('../departement/departement.model');
 
-
 //Open Street MAp
 var geocoderProvider = 'openstreetmap';
 
@@ -13,7 +12,7 @@ var httpAdapter = 'http';
 var extra = {
     language:"fr" 
 };
- 
+
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter,extra);
 
 
@@ -178,7 +177,6 @@ exports.create = function(req,res,next){
 	if(capteur_son !== NaN)
 		capture.son = critere.son;
 	else
-	capture.departement = res.state;
 		capteur_son = null;
 	if(capteur_co2 !== NaN)
 		capture.co2 = critere.co2;
@@ -195,13 +193,7 @@ exports.create = function(req,res,next){
 		        	Departement.find({code:villes[0].departement}).exec(function(err,departements){
 		        		capture.departement = departements[0].nom;
 		        		var d = new Date();
-						var day = d.getDate();
-						var month = d.getMonth() + 1;
-						var year = d.getFullYear();
-						if(month<10){
-							month = '0' + month;
-						}
-						capture.date = day + '/' + month + '/' + year;
+						capture.date = d;
 		        		capture.save(function(err,captures){
 							if(err)
 								return res.send(404,err);
