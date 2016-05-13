@@ -22,13 +22,11 @@
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <mz-datepicker id="dateDeb" date="dateDeb"></mz-datepicker>
-                            <label for="dateDeb" class="active">Date de début</label>
+                            <mz-datepicker id="dateDeb" date="dateDeb" label="Date de début"></mz-datepicker>
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <mz-datepicker id="dateFin" date="dateFin">Date de fin</mz-datepicker>
-                            <label for="dateFin" class="active">Date de fin</label>
+                            <mz-datepicker id="dateFin" date="dateFin" label="Date de fin"></mz-datepicker>
                         </div>
 
                     </div>
@@ -44,18 +42,18 @@
         </div>
     </form>
 
-    <div id="datatable" class="col s12 m12" ng-show="results.length != 0">
+    <div id="datatable" class="col s12 m12" ng-if="results.length != 0 && searchLaunch == true">
         <h5>{{ nbCaptures }} résultats</h5>
         <table class="responsive-table striped">
             <thead>
             <tr>
-                <th data-field="dep">Département</th>
+                <th data-field="dt">Date</th>
+                <th data-field="d">Département</th>
                 <th data-field="v">Ville</th>
                 <th data-field="t">Température</th>
                 <th data-field="h">Humidité</th>
                 <th data-field="s">Son</th>
-                <th data-field="c">CO2</th>
-                <th data-field="date">Date</th>
+                <th data-field="c">Co2</th>
                 <th data-field="la">Latitude</th>
                 <th data-field="lo">Longitude</th>
             </tr>
@@ -63,7 +61,7 @@
 
             <tbody>
             <tr  ng-repeat="result in results">
-                <td>{{result.date | date : 'dd/MM/yyyy - mm:HH:ss'}}</td>
+                <td>{{result.date | date : 'dd/MM/yyyy - HH:mm:ss'}}</td>
                 <td>{{result.departement}}</td>
                 <td>{{result.ville}}</td>
                 <td>{{formatNumber(result.temperature)}}</td>
@@ -75,12 +73,12 @@
             </tr>
             </tbody>
         </table>
+
+        <mz-pagination pages="nbPages" action="changePage(index)"></mz-pagination>
     </div>
 
-    <mz-pagination pages="nbPages" action="changePage(index)" ng-show="results.length != 0"></mz-pagination>
-
     <div class="icon-block">
-        <h5 ng-show="results.length == 0 && results == true">Pas de résultat !</h5>
+        <h5 ng-if="results.length == 0 && searchLaunch == true">Pas de résultat !</h5>
     </div>
 
 </div>

@@ -5,7 +5,7 @@ angular.module('greenPathApp').directive('mzScrollspy', [function(){
         scope: {
             cards: '='
         },
-        templateUrl: 'app/shared/scrollspy/scrollspy.vw.html',
+        templateUrl: './app/shared/scrollspy/scrollspy.vw.html',
         link: function(scope, element, attrs){
 
             scope.gotoAnchor  = function(anchor){

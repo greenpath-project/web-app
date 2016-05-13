@@ -6,7 +6,7 @@ angular.module('greenPathApp').directive('mzPageTitle', [function(){
             title: '@',
             icon: '@'
         },
-        templateUrl: 'app/shared/pageTitle/pageTitle.vw.html',
+        templateUrl: './app/shared/pageTitle/pageTitle.vw.html',
         controller: function($scope, $element, $rootScope){
         },
         link: function(scope, element, attrs) {

@@ -2,7 +2,7 @@ angular.module('greenPathApp').directive('mzContent', function(){
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: 'app/shared/content/content.vw.html',
+        templateUrl: './app/shared/content/content.vw.html',
         scope: {
             card: '='
         },

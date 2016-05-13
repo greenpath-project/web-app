@@ -6,7 +6,7 @@ angular.module('greenPathApp').directive('mzPagination', ['$timeout', function($
             pages : '=',
             action : '&'
         },
-        templateUrl: 'app/shared/pagination/pagination.vw.html',
+        templateUrl: './app/shared/pagination/pagination.vw.html',
         link: function(scope, element, attr){
             scope.firstLoad = true;
 
@@ -30,9 +30,12 @@ angular.module('greenPathApp').directive('mzPagination', ['$timeout', function($
             }
 
             scope.changePage = function(index){
-                scope.action({index : index});
-                scope.deselectLi();
-                scope.selectLi(index);
+                if(!$(element).find('ul.pagination li#' + index).hasClass('active')){
+                    scope.action({index : index});
+                    scope.deselectLi();
+                    scope.selectLi(index);
+
+                }
             }
 
         }

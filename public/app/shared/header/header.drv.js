@@ -5,7 +5,7 @@ angular.module('greenPathApp').directive('mzHeader', [function(){
         scope: {
             cards: '='
         },
-        templateUrl: 'app/shared/header/header.vw.html',
+        templateUrl: './app/shared/header/header.vw.html',
         link: function(scope, element, attrs){
 
             $('.button-collapse').sideNav({

@@ -10,11 +10,14 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
     $scope.nbCaptures = 0;
     $scope.searchLaunch = false;
 
+
     $scope.launchSearch = function (skip) {
-
-        $scope.results.length = 0;
-
         if ($scope.ville.length != 0 || $scope.departement.length != 0) {
+
+
+            $('.pagination li.active').removeClass('active').addClass('waves-effect');
+            $('.pagination li#0').addClass('active').removeClass('waves-effect');
+
             var data = Engine.query({
                 dateDeb: $scope.dateDeb,
                 dateFin: $scope.dateFin,
@@ -33,6 +36,10 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
                 }
 
                 $scope.results = data.captures;
+
+                $timeout(function(){
+                    $('html, body').animate({scrollTop: $('#datatable').position().top},500);
+                })
             });
         }
     }

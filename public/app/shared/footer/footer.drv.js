@@ -4,6 +4,6 @@ angular.module('greenPathApp').directive('mzFooter', function(){
         replace: true,
         scope: {
         },
-        templateUrl: 'app/shared/footer/footer.vw.html'
+        templateUrl: './app/shared/footer/footer.vw.html'
     };
 });

@@ -1,11 +1,11 @@
-angular.module('greenPathApp').directive('mzIconSection', [function(){
+angular.module('greenPathApp').directive('mzIconSection', ['$location', function($location){
     return {
         restrict: 'E',
         replace: true,
         scope: {
             cards: '='
         },
-        templateUrl: 'app/shared/iconSection/iconSection.vw.html',
+        templateUrl: './app/shared/iconSection/iconSection.vw.html',
         link: function(scope, element, attrs){
 
             scope.gotoAnchor  = function(anchor){
@@ -13,6 +13,10 @@ angular.module('greenPathApp').directive('mzIconSection', [function(){
                 return false;
             }
 
+            scope.go = function(url){
+                url = url.replace('#', '');
+                $location.path(url);
+            }
         }
     };
 }]);

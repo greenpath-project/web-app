@@ -38,7 +38,6 @@ exports.getAll = function(req,res,next){
 //Récupère les captures correspondant à la recherche effectuée
 exports.search = function(req,res,next){
 	//Récupération des critères de recherche
-    console.log(JSON.stringify(req.query));
 	var critere = req.query;
 	var capteur_dateDeb = critere.dateDeb;
 	var capteur_dateFin = critere.dateFin;
@@ -49,7 +48,6 @@ exports.search = function(req,res,next){
 
 	//Recherche
 	if(capteur_dateDeb=="" && capteur_dateFin==""){
-		console.log('Recherche sans date !');
 		var nbCaptures = 0;
 		if(capteur_ville!==""){
 			Capture.find({ville:capteur_ville}).exec(function(err,captures){
@@ -93,20 +91,16 @@ exports.search = function(req,res,next){
 
 		capteur_dateDeb = new Date(capteur_dateDeb);
 		capteur_dateFin = new Date(capteur_dateFin);
-		console.log('Recherche avec date !' + capteur_dateDeb + ' - ' +  capteur_dateFin);
 
 		if(capteur_ville!==""){
-			console.log('Recherche ville !');
             var nbCaptures = 0;
             Capture.find({ville:capteur_ville,date:{$gte:capteur_dateDeb,$lte:capteur_dateFin}}).exec(function(err,captures){
-				console.log(capteur_skip + ' - ' + capteur_limit);
                 if(err){
                     return res.send(404,err);
                 }else{
                     nbCaptures = captures.length;
                     Capture.find({ville:capteur_ville,date:{$gte:capteur_dateDeb,$lte:capteur_dateFin}}).skip(capteur_skip).limit(capteur_limit).exec(function(err,captures){
                         if(err){
-                            console.log(JSON.stringify(err));
                             return res.send(404,err);
                         }else{
                             return res.json({
@@ -119,7 +113,6 @@ exports.search = function(req,res,next){
             });
         }
 		else if(capteur_departement!==""){
-			console.log('Recherche département !');
             var nbCaptures = 0;
 			Capture.find({departement:capteur_departement,date:{$gte:capteur_dateDeb,$lte:capteur_dateFin}}).exec(function(err,captures){
 				if(err){
@@ -196,7 +189,6 @@ exports.create = function(req,res,next){
 
 		geocoder.reverse({lat:capture.lat, lon:capture.lng})
 		    .then(function(localisation) {
-		        console.log(localisation);
 		        capture.ville = localisation[0].city;
 
 		        Ville.find({nom:localisation[0].city}).exec(function(err,villes){

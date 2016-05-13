@@ -85,7 +85,7 @@ div.pinned {
 }
 
 p.text-section {
-    text-align: justify
+    text-align: center /*justify*/
 }
 
 .parallax img {
@@ -129,4 +129,12 @@ span.container-title h1 {
 
 .pagination li.active {
     background-color: #4CAF50;
+}
+
+footer.page-footer{
+    padding-top: 0px;
+}
+
+footer.page-footer a{
+    text-decoration: underline;
 }
