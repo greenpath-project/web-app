@@ -1,7 +1,8 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./capture.controller');
+var pg = require('pg');
+var connectionString = process.env.DATABASE_URL || 'postgres://todo:todo@localhost:5432/GreenPath';
 
 var router = express.Router();
 
