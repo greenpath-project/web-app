@@ -1,84 +1,185 @@
-angular.module('greenPathApp').controller('MapCtrl', ['$scope', 'Map', function($scope, Map){
-
-    var view = new ol.View({
-        center: [0, 0],
-        zoom: 5
+angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map', function($scope, $timeout, Map){  
+       
+    var extent = ol.proj.transformExtent([-1.44861111111111, 43.5527777777778,
+        1.45083333333333, 45.9841666666667], 'EPSG:4326', 'EPSG:3857');
+        
+    var projection = new ol.proj.Projection({
+        code: 'EPSG:4326',
+        units: 'degrees',
+        axisOrientation: 'neu'
+    });   
+  
+    /**
+     * Layers
+     */
+    var baseLayerOsm = new ol.layer.Tile({
+        source: new ol.source.OSM(),
+        visible: true
     });
 
-    var map = new ol.Map({
-        layers: [
-            new ol.layer.Tile({
-                source: new ol.source.OSM()
-            })
-        ],
-        target: 'map',
-        controls: ol.control.defaults({
-            attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-                collapsible: false
-            })
+    var baseLayerBing = new ol.layer.Tile({       
+        preload: Infinity,
+        source: new ol.source.BingMaps({
+            key: 'Au3fQ87Xe7YpJ2Hm_LIO2b3r59cYZoiP_MWOuAT73r5tkuVt1Grl-W_MuWgpc8XA',
+            imagerySet: 'AerialWithLabels',
+            maxZoom: 19
         }),
-        view: view
+        visible: false
     });
 
-    var geolocation = new ol.Geolocation({
-        projection: view.getProjection()
+    var layerPoints = new ol.layer.Vector({
+        extent: extent,
+        source: Map(),
+        style: styleFunction,
+        visible: true
+    });
+    
+    var styleCache = {};
+    var layerCluster = new ol.layer.Vector({
+        source: new ol.source.Cluster({
+            distance: 40,
+            source: Map()                 
+        }),
+        style: function(feature) {
+            var size = feature.get('features').length;
+            var style = styleCache[size];
+            if (!style) {
+                style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 10,
+                        stroke: new ol.style.Stroke({
+                            color: '#fff'
+                        }),
+                        fill: new ol.style.Fill({
+                            color: '#3399CC'
+                        })
+                    }),
+                    text: new ol.style.Text({
+                        text: size.toString(),
+                        fill: new ol.style.Fill({
+                            color: '#fff'
+                        })
+                    })
+                });
+                styleCache[size] = style;
+            }
+            return style;
+        },
+        visible: true
+    });
+    
+    /**
+     * Interactions
+     */
+    var mousePositionControl = new ol.control.MousePosition({
+        target: document.getElementById('location'),
+        coordinateFormat: ol.coordinate.createStringXY(5),
+        undefinedHTML: 'No Data !',
+        projection: projection
+    });
+    
+    var map = new ol.Map({
+        controls: ol.control.defaults({
+            attribution: false
+        }).extend([
+            new ol.control.FullScreen(),
+            new ol.control.ScaleLine(),
+            new ol.control.OverviewMap(),
+            new ol.control.ZoomSlider(),
+            mousePositionControl
+        ]),
+        layers: [baseLayerOsm, baseLayerBing, layerPoints, layerCluster],
+        target: document.getElementById('map'),
+        view: new ol.View({
+            center:  ol.proj.transform([-0.5, 44.5], 'EPSG:4326', 'EPSG:3857'),
+            zoom: 8,
+            maxZoom: 16,
+            minZoom: 6,
+            extent: extent
+        }),
+        loadTilesWhileInteracting: true
     });
 
-    function el(id) {
-        return document.getElementById(id);
+    map.on('moveend', function (e) {
+        var zoom = e.map.getView().getZoom();
+        if(zoom < 12){
+            layerCluster.setVisible(true);
+            layerPoints.setVisible(false);
+        }
+        else if(zoom >= 12){
+            layerCluster.setVisible(false);
+            layerPoints.setVisible(true);
+        }
+    });
+    
+    $scope.changeBaseLayer = function(layer){
+        if('osm' == layer){
+            baseLayerBing.setVisible(false);
+            baseLayerOsm.setVisible(true);
+        }
+        else if('bing' == layer){
+            baseLayerBing.setVisible(true);
+            baseLayerOsm.setVisible(false);
+        }
+
     }
+    
+    /**
+     * Popup
+     */
+    $timeout(function(){
+        
+         /**
+         * Elements that make up the popup.
+         */
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
 
-    el('track').addEventListener('click', function() {
-        geolocation.setTracking(this.checked);
-    });
-
-    // update the HTML page when the position changes.
-    geolocation.on('change', function() {
-        el('accuracy').innerText = geolocation.getAccuracy() + ' [m]';
-        el('altitude').innerText = geolocation.getAltitude() + ' [m]';
-        el('altitudeAccuracy').innerText = geolocation.getAltitudeAccuracy() + ' [m]';
-        el('heading').innerText = geolocation.getHeading() + ' [rad]';
-        el('speed').innerText = geolocation.getSpeed() + ' [m/s]';
-    });
-
-    // handle geolocation error.
-    geolocation.on('error', function(error) {
-        var info = document.getElementById('info');
-        info.innerHTML = error.message;
-        info.style.display = '';
-    });
-
-    var accuracyFeature = new ol.Feature();
-    geolocation.on('change:accuracyGeometry', function() {
-        accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-    });
-
-    var positionFeature = new ol.Feature();
-    positionFeature.setStyle(new ol.style.Style({
-        image: new ol.style.Circle({
-            radius: 6,
-            fill: new ol.style.Fill({
-                color: '#3399CC'
-            }),
-            stroke: new ol.style.Stroke({
-                color: '#fff',
-                width: 2
-            })
-        })
-    }));
-
-    geolocation.on('change:position', function() {
-        var coordinates = geolocation.getPosition();
-        positionFeature.setGeometry(coordinates ?
-            new ol.geom.Point(coordinates) : null);
-    });
-
-    new ol.layer.Vector({
-        map: map,
-        source: new ol.source.Vector({
-            features: [accuracyFeature, positionFeature]
-        })
-    });
+        /**
+         * Create an overlay to anchor the popup to the map.
+         */
+        var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+            element: container,
+            autoPan: true,
+            autoPanAnimation: {
+                duration: 250
+            }
+        }));
 
 
+        /**
+         * Add a click handler to hide the popup.
+         * @return {boolean} Don't follow the href.
+         */
+        closer.onclick = function() {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        }; 
+        
+        map.on('singleclick', function(evt) {
+            if(layerPoints.getVisible()){
+                var feature = layerPoints.getSource().getClosestFeatureToCoordinate(evt.coordinate);
+
+                var date = feature.U.dept_date_ouverture.replace('T', ' ').replace('Z', '');
+
+                content.innerHTML = '<ul style="font-family: Arial">'
+                    + '<li> Nom : ' + feature.U.dep_nom + '</li>'
+                    + '<li> Ouverture : '+ date +'</li>'
+                    + '<li> Capacité de stockage : ' + feature.U.dep_capacite_stockage + '</li>'
+                    + '<li> Longitude : ' + feature.U.longitude_dms + '</li>'
+                    + '<li> Latitude : ' + feature.U.latitude_dms + '</li>'
+                    + '</ul>'
+
+                overlay.setPosition(evt.coordinate);
+                
+                map.getView().setCenter(evt.coordinate);
+            }
+        });
+        
+        map.addOverlay(overlay);
+        
+    })
+    
 }]);
