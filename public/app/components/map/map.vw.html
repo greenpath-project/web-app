@@ -2,19 +2,25 @@
 
     <mz-page-title title="Carte" icon="language"></mz-page-title>
 
-    <div id="map" class="map"></div>
-    <div id="info" style="display: none;"></div>
+    <div id="map" class="map"></div>  
+    
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content">
+            <span id="location"></span>
+        </div>
+    </div>  
 
-    <label for="track" class="waves-effect waves-light btn">
-        track position
-        <i class="material-icons right">cloud</i>
-        <input id="track" type="checkbox"/>
-    </label>
-    <p>
-        position accuracy : <code id="accuracy"></code>&nbsp;&nbsp;
-        altitude : <code id="altitude"></code>&nbsp;&nbsp;
-        altitude accuracy : <code id="altitudeAccuracy"></code>&nbsp;&nbsp;
-        heading : <code id="heading"></code>&nbsp;&nbsp;
-        speed : <code id="speed"></code>
-    </p>
+    <div id="layerSelector">
+        <h6>Sélectionner un fond de carte :</h6>
+        <p>
+            <input name="group1" type="radio" id="osm" ng-click="changeBaseLayer('osm')" checked />
+            <label for="osm">OpenStreeMap</label>
+        </p>
+        <p>
+            <input name="group1" type="radio" id="bing" ng-click="changeBaseLayer('bing')" />
+            <label for="bing">BingMap</label>
+        </p>
+    </div>
+    
 </div>

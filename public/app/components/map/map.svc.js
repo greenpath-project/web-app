@@ -1,5 +1,16 @@
-angular.module('greenPathApp').factory('Map', ['$resource', function($resource){
-    return $resource('', {}, {
-        query: {method: 'GET', isArray: true, url: './'}
-    });
+angular.module('greenPathApp').factory('Map', [function(){  
+    
+    return function(){
+        return new ol.source.Vector({
+            format: new ol.format.GeoJSON(),
+            url: function(extent) {
+                return 'http://localhost:3000/geoserver/logistique/ows?service=WFS&' +
+                    'version=1.1.0&request=GetFeature&typeName=logistique:depots&' +
+                    'outputFormat=application%2Fjson&bbox=' + extent.join(',') + ',EPSG:3857&srsname=EPSG:3857';
+            },
+            strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+                maxZoom: 1
+            }))
+        });
+    }    
 }]);
