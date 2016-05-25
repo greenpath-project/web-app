@@ -22,7 +22,7 @@ router.get('/',function(req,res,next){
         }
 
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM Captures");
+        var query = client.query("SELECT * FROM captures");
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -68,7 +68,7 @@ router.get('/releve/',function(req,res,next){
 			var nbCaptures = 0;
 			if(data.villes!==""){
 		        // SQL Query > Select Data
-		        var query = client.query("SELECT * FROM Captures WHERE ville=$1",[data.ville]);
+		        var query = client.query("SELECT * FROM captures WHERE ville=$1",[data.ville]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -80,7 +80,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM Captures WHERE ville=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures WHERE ville=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -98,7 +98,7 @@ router.get('/releve/',function(req,res,next){
 		    }
 		    else if(data.departement!==""){
 		    	// SQL Query > Select Data
-		        var query = client.query("SELECT * FROM Captures WHERE departement=$1",[data.departement]);
+		        var query = client.query("SELECT * FROM captures WHERE departement=$1",[data.departement]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -110,7 +110,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM Captures WHERE departement=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures WHERE departement=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -139,7 +139,7 @@ router.get('/releve/',function(req,res,next){
 			if(data.ville!==""){
 	            var nbCaptures = 0;
 	            // SQL Query > Select Data
-		        var query = client.query("SELECT * FROM Captures WHERE ville=$1 AND date BETWEEN $2 AND $3",[data.ville,data.dateDebut,data.dateFin]);
+		        var query = client.query("SELECT * FROM captures WHERE ville=$1 AND date BETWEEN $2 AND $3",[data.ville,data.dateDebut,data.dateFin]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -151,7 +151,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM Captures WHERE ville=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.ville,data.dateDebut,data.dateFin,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures WHERE ville=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.ville,data.dateDebut,data.dateFin,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -170,7 +170,7 @@ router.get('/releve/',function(req,res,next){
 	        else if(data.departement!==""){
             	var nbCaptures = 0;
             	// SQL Query > Select Data
-		        var query = client.query("SELECT * FROM Captures WHERE departement=$1 AND date BETWEEN $2 AND $3",[data.departement,data.dateDebut,data.dateFin]);
+		        var query = client.query("SELECT * FROM captures WHERE departement=$1 AND date BETWEEN $2 AND $3",[data.departement,data.dateDebut,data.dateFin]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -182,7 +182,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM Captures WHERE departement=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.departement,data.dateDebut,data.dateFin,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures WHERE departement=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.departement,data.dateDebut,data.dateFin,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -285,7 +285,7 @@ router.post('/',function(req,res,next){
 			        }
 
 			        // SQL Query > Select Data
-			        var query = client.query("SELECT Departements.nom FROM Villes,Departements WHERE Villes.code = Departements.code AND Villes.nom=$1",[data.ville]);
+			        var query = client.query("SELECT departements.nom FROM villes,departements WHERE villes.code = departements.code AND villes.nom=$1",[data.ville]);
 
 			        // Stream results back one row at a time
 			        query.on('row', function(row) {
@@ -298,7 +298,7 @@ router.post('/',function(req,res,next){
 			            	data.departement = results[0]['nom'];
 			            	var d = new Date();
 							data.date = d;
-        					client.query("INSERT INTO Captures(lat,lng,temperature,humidite,son,co2,ville,departement,date) values($1, $2, $3, $4, $5, $6, $7, $8, $9)", [data.lat,data.lng,,data.temperature,data.humidite,data.son,data.co2,data.ville,data.departement,data.date]);
+        					client.query("INSERT INTO captures(latitude,longitude,temperature,humidite,son,co2,ville,departement,date) values($1, $2, $3, $4, $5, $6, $7, $8, $9)", [data.lat,data.lng,,data.temperature,data.humidite,data.son,data.co2,data.ville,data.departement,data.date]);
 			            	done();
 			            }
 			        });
