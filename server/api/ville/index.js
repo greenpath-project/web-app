@@ -23,7 +23,7 @@ router.get('/',function(req,res,next){
         }
 
         // SQL Query > Select Data
-        var query = client.query("SELECT nom, code FROM Villes");
+        var query = client.query("SELECT nom, code FROM villes");
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -61,7 +61,7 @@ router.get('/code',function(req,res,next){
 	        }
 
 	        // SQL Query > Select Data
-	        var query = client.query("SELECT * FROM Villes WHERE code=$1",[data.code]);
+	        var query = client.query("SELECT * FROM villes WHERE code=$1",[data.code]);
 
 	        // Stream results back one row at a time
 	        query.on('row', function(row) {
@@ -98,7 +98,7 @@ router.get('/nom',function(req,res,next){
 	        }
 
 	        // SQL Query > Select Data
-	        var query = client.query("SELECT * FROM Villes WHERE nom=$1",[data.nom]);
+	        var query = client.query("SELECT * FROM villes WHERE nom=$1",[data.nom]);
 
 	        // Stream results back one row at a time
 	        query.on('row', function(row) {
