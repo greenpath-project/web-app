@@ -1,4 +1,7 @@
 angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map', function($scope, $timeout, Map){  
+    
+    window.app = {};
+    var app = window.app
        
     var extent = ol.proj.transformExtent([-0.575136, 44.862222,
                     -0.557862, 44.867297], 'EPSG:4326', 'EPSG:3857');
@@ -71,12 +74,38 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
     /**
      * Interactions
      */
-    var mousePositionControl = new ol.control.MousePosition({
-        target: document.getElementById('location'),
-        coordinateFormat: ol.coordinate.createStringXY(5),
-        undefinedHTML: 'No Data !',
-        projection: projection
-    });
+    app.changeLayer = function(opt_options) {
+        var options = opt_options || {};
+
+        var button = document.createElement('button');
+        button.innerHTML = 'L';
+
+        var this_ = this;
+        var handleChangeLayer = function() {
+            if(baseLayerBing.getVisible()){
+                baseLayerBing.setVisible(false);
+                baseLayerOsm.setVisible(true);
+            }
+            else {
+                baseLayerBing.setVisible(true);
+                baseLayerOsm.setVisible(false);
+            }
+        };
+
+        button.addEventListener('click', handleChangeLayer, false);
+        button.addEventListener('touchstart', handleChangeLayer, false);
+
+        var element = document.createElement('div');
+        element.className = 'change-layer ol-unselectable ol-control';
+        element.appendChild(button);
+
+        ol.control.Control.call(this, {
+          element: element,
+          target: options.target
+        });
+
+    };
+    ol.inherits(app.changeLayer, ol.control.Control);   
     
     var map = new ol.Map({
         controls: ol.control.defaults({
@@ -86,7 +115,7 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
             new ol.control.ScaleLine(),
             new ol.control.OverviewMap(),
             new ol.control.ZoomSlider(),
-            mousePositionControl
+            new app.changeLayer()
         ]),
         layers: [baseLayerOsm, baseLayerBing, layerPoints, layerCluster],
         target: document.getElementById('map'),
@@ -100,6 +129,7 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
         loadTilesWhileInteracting: true
     });
 
+
     map.on('moveend', function (e) {
         var zoom = e.map.getView().getZoom();
         if(zoom < 12){
@@ -112,17 +142,6 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
         }
     });
     
-    $scope.changeBaseLayer = function(layer){
-        if('osm' == layer){
-            baseLayerBing.setVisible(false);
-            baseLayerOsm.setVisible(true);
-        }
-        else if('bing' == layer){
-            baseLayerBing.setVisible(true);
-            baseLayerOsm.setVisible(false);
-        }
-
-    }
     
     /**
      * Popup
@@ -164,21 +183,20 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
 
                 var date = feature.U.date.replace('T', ' ').replace('Z', '');
 
-                 content.innerHTML = '<ul style="font-family: Arial">'
-                    + '<li> Son : ' + feature.U.son + '</li>'
-                    + '<li> Humidite : '+ feature.U.humidite +'</li>'
-                    + '<li> Temperature : ' + feature.U.temperature + '</li>'
+                 content.innerHTML = '<ul style="font-family: Arial; font-size: small;">'
+                    + '<li> Date : ' + date + '</li>'  
                     + '<li> Longitude : ' + feature.U.longitude + '</li>'
-                    + '<li> Latitude : ' + feature.U.latitude + '</li>'
+                    + '<li> Latitude : ' + feature.U.latitude + '</li>'               
+                    + '<li> Son : ' + feature.U.son + ' dB</li>'
+                    + '<li> Humidite : '+ feature.U.humidite +' %</li>'
+                    + '<li> Temperature : ' + feature.U.temperature + ' °C</li>'                 
                     + '<li> Co2 : ' + feature.U.co2 + '</li>'
                     + '<li> Ville : ' + feature.U.ville + '</li>'
                     + '<li> Departement : ' + feature.U.departement + '</li>'
-                    + '<li> Date : ' + date + '</li>'
                     + '</ul>'
 
-                overlay.setPosition(evt.coordinate);
-                
-                map.getView().setCenter(evt.coordinate);
+                overlay.setPosition(feature.getGeometry().getCoordinates());
+                map.getView().setCenter(feature.getGeometry().getCoordinates());
             }
         });
         

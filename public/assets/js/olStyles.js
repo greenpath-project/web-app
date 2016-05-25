@@ -1,7 +1,7 @@
 var image = new ol.style.Circle({
     radius: 5,
     fill: new ol.style.Fill({
-        color: '#3399CC'
+        color: '#4CAF50'
     }),
     stroke: new ol.style.Stroke({color: '#fff', width: 1})
 });

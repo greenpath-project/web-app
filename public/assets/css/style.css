@@ -167,7 +167,7 @@ footer.page-footer a{
     border: 1px solid #cccccc;
     bottom: 12px;
     left: -50px;
-    min-width: 280px;
+    min-width: 215px;
 }
 .ol-popup:after, .ol-popup:before {
     top: 100%;
@@ -221,4 +221,13 @@ footer.page-footer a{
     display: inline-block;
     bottom: 25px;
     position: absolute;
+}
+
+.change-layer{
+    top: 65px;
+    right: .5em;
+}
+
+.ol-touch .change-layer {
+    top: 80px;
 }
