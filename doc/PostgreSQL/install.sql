@@ -17,6 +17,11 @@ CREATE DATABASE greenpath
        LC_COLLATE = 'French_France.1252'
        LC_CTYPE = 'French_France.1252'
        CONNECTION LIMIT = -1;
+
+ALTER DATABASE greenpath
+  SET search_path = "$user", public, tiger;
+
+
 	   
 -- Enable PostGIS (includes raster)
 CREATE EXTENSION postgis;
