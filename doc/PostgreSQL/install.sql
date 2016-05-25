@@ -41,30 +41,15 @@ CREATE EXTENSION address_standardizer_data_us;
 -- Enable US Tiger Geocoder
 CREATE EXTENSION postgis_tiger_geocoder;
 
--- Table: public.villes
-
--- DROP TABLE public.villes;
-
-CREATE TABLE public.villes
-(
-  code character varying(5),
-  nom character varying(255),
-  departement character varying(5)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.villes
-  OWNER TO greenpath;
-  
 -- Table: public.departements
 
 -- DROP TABLE public.departements;
 
 CREATE TABLE public.departements
 (
-  code character varying(5),
-  nom character varying(255)
+  code character varying(5) NOT NULL,
+  nom character varying(255),
+  CONSTRAINT code_pk_dep PRIMARY KEY (code)
 )
 WITH (
   OIDS=FALSE
@@ -72,7 +57,25 @@ WITH (
 ALTER TABLE public.departements
   OWNER TO greenpath;
   
--- Table: public.captures
+  -- Table: public.villes
+
+-- DROP TABLE public.villes;
+
+CREATE TABLE public.villes
+(
+  code character varying(5) NOT NULL,
+  nom character varying(255),
+  departement character varying(5),
+  CONSTRAINT code_pk_ville PRIMARY KEY (code)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.villes
+  OWNER TO greenpath;
+  
+  
+  -- Table: public.captures
 
 -- DROP TABLE public.captures;
 
@@ -87,7 +90,13 @@ CREATE TABLE public.captures
   ville character varying(5),
   departement character varying(4),
   date timestamp without time zone,
-  geom geometry
+  geom geometry,
+  CONSTRAINT dep_code_fk FOREIGN KEY (departement)
+      REFERENCES public.departements (code) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT ville_code_fk FOREIGN KEY (ville)
+      REFERENCES public.villes (code) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
@@ -95,5 +104,22 @@ WITH (
 ALTER TABLE public.captures
   OWNER TO greenpath;
 
+-- Index: public.fki_dep_code_fk
+
+-- DROP INDEX public.fki_dep_code_fk;
+
+CREATE INDEX fki_dep_code_fk
+  ON public.captures
+  USING btree
+  (departement COLLATE pg_catalog."default");
+
+-- Index: public.fki_ville_code_fk
+
+-- DROP INDEX public.fki_ville_code_fk;
+
+CREATE INDEX fki_ville_code_fk
+  ON public.captures
+  USING btree
+  (ville COLLATE pg_catalog."default");
 
 
