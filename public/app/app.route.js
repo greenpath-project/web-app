@@ -25,7 +25,7 @@ angular.module('greenPathApp').config(['$routeProvider', function($routeProvider
             templateUrl: 'app/components/engine/engine.vw.html',
             controller: 'EngineCtrl'
         }
-    ).when('/map',
+    ).when('/map/:hideInterface?',
         {
             templateUrl: 'app/components/map/map.vw.html',
             controller: 'MapCtrl'

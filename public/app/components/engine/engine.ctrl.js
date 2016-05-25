@@ -16,7 +16,7 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
 
             $('.pagination li.active').removeClass('active').addClass('waves-effect');
             $('.pagination li#0').addClass('active').removeClass('waves-effect');
-
+            
             var data = Engine.query({
                 dateDeb: $scope.dateDeb,
                 dateFin: $scope.dateFin,

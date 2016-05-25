@@ -14,12 +14,12 @@
     <body ng-app="greenPathApp" ng-cloak>
 
         <div ng-controller="MainCtrl">
-            <mz-header cards="cards"></mz-header>
+            <mz-header ng-hide="hideInterface" cards="cards"></mz-header>
             <div  style="min-height: 561px;">
                 <ng-view></ng-view>
             </div>
-            <mz-footer></mz-footer>
-            <mz-top-button></mz-top-button>
+            <mz-footer ng-hide="hideInterface"></mz-footer>
+            <mz-top-button ng-hide="hideInterface"></mz-top-button>
         </div>
 
         <!-- Vendors -->        

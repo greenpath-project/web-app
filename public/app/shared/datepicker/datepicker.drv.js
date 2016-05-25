@@ -31,7 +31,7 @@ angular.module('greenPathApp').directive('mzDatepicker', ['$timeout', function($
                                 var d = select.obj;
                                 d.setDate(d.getDate() + 1);
                                 scope.dateTmp = d;
-                                scope.changeDate(select.obj);
+                                scope.changeDate(d);
                             });
                         }
                     },
