@@ -2,7 +2,7 @@
 
 var express = require('express');
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://todo:todo@localhost:5432/GreenPath';
+var connectionString = process.env.DATABASE_URL || 'postgres://greenpath:greenpath@localhost:5432/greenpath';
 
 var router = express.Router();
 

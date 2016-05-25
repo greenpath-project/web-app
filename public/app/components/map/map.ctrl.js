@@ -1,7 +1,7 @@
 angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map', function($scope, $timeout, Map){  
        
-    var extent = ol.proj.transformExtent([-1.44861111111111, 43.5527777777778,
-        1.45083333333333, 45.9841666666667], 'EPSG:4326', 'EPSG:3857');
+    var extent = ol.proj.transformExtent([-0.575136, 44.862222,
+                    -0.557862, 44.867297], 'EPSG:4326', 'EPSG:3857');
         
     var projection = new ol.proj.Projection({
         code: 'EPSG:4326',
@@ -91,8 +91,8 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
         layers: [baseLayerOsm, baseLayerBing, layerPoints, layerCluster],
         target: document.getElementById('map'),
         view: new ol.View({
-            center:  ol.proj.transform([-0.5, 44.5], 'EPSG:4326', 'EPSG:3857'),
-            zoom: 8,
+            center:  ol.proj.transform([-0.57, 44.86], 'EPSG:4326', 'EPSG:3857'),
+            zoom: 12,
             maxZoom: 16,
             minZoom: 6,
             extent: extent
@@ -162,14 +162,18 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
             if(layerPoints.getVisible()){
                 var feature = layerPoints.getSource().getClosestFeatureToCoordinate(evt.coordinate);
 
-                var date = feature.U.dept_date_ouverture.replace('T', ' ').replace('Z', '');
+                var date = feature.U.date.replace('T', ' ').replace('Z', '');
 
-                content.innerHTML = '<ul style="font-family: Arial">'
-                    + '<li> Nom : ' + feature.U.dep_nom + '</li>'
-                    + '<li> Ouverture : '+ date +'</li>'
-                    + '<li> Capacité de stockage : ' + feature.U.dep_capacite_stockage + '</li>'
-                    + '<li> Longitude : ' + feature.U.longitude_dms + '</li>'
-                    + '<li> Latitude : ' + feature.U.latitude_dms + '</li>'
+                 content.innerHTML = '<ul style="font-family: Arial">'
+                    + '<li> Son : ' + feature.U.son + '</li>'
+                    + '<li> Humidite : '+ feature.U.humidite +'</li>'
+                    + '<li> Temperature : ' + feature.U.temperature + '</li>'
+                    + '<li> Longitude : ' + feature.U.longitude + '</li>'
+                    + '<li> Latitude : ' + feature.U.latitude + '</li>'
+                    + '<li> Co2 : ' + feature.U.co2 + '</li>'
+                    + '<li> Ville : ' + feature.U.ville + '</li>'
+                    + '<li> Departement : ' + feature.U.departement + '</li>'
+                    + '<li> Date : ' + date + '</li>'
                     + '</ul>'
 
                 overlay.setPosition(evt.coordinate);

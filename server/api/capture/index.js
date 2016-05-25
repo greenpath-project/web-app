@@ -2,17 +2,16 @@
 
 var express = require('express');
 var pg = require('pg');
-var connectionString = process.env.DATABASE_URL || 'postgres://todo:todo@localhost:5432/GreenPath';
+var connectionString = process.env.DATABASE_URL || 'postgres://greenpath:greenpath@localhost:5432/greenpath';
 
 var router = express.Router();
 
-/******
-	Méthode GET
-*******/
-//Récupère toutes les captures
+/**
+ * Récupère toutes les captures
+ * Méthode GET
+ */
 router.get('/',function(req,res,next){
 	var results = [];
-
 	 // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
         // Handle connection errors
@@ -35,11 +34,13 @@ router.get('/',function(req,res,next){
             done();
             return res.json(results);
         });
-
-
     });
 });
-//Récupère les captures correspondant à la recherche effectuée
+
+/**
+ * Récupère les captures correspondant à la recherche effectuée
+ * Méthode GET
+ */
 router.get('/releve/',function(req,res,next){
 	//Récupération des critères de recherche
 	var critere = req.query;
@@ -200,13 +201,14 @@ router.get('/releve/',function(req,res,next){
             else{
 				return res.send(404,'Données incorrectes');
 			}
-    });
+    	}
+	})
 });
 
-/******
-	Méthode POST
-*******/
-//Enregistrement d'une capture
+/**
+ * Enregistrement d'une capture
+ * Méthode POST
+ */
 router.post('/',function(req,res,next){
 	//Récupération des données envoyés par l'application
 	var critere = req.body;
