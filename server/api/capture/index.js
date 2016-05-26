@@ -4,6 +4,17 @@ var express = require('express');
 var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgres://greenpath:greenpath@localhost:5432/greenpath';
 
+//Open Street MAp
+var geocoderProvider = 'openstreetmap';
+
+var httpAdapter = 'http';
+// optionnal 
+var extra = {
+    language:"fr" 
+};
+
+var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter,extra);
+
 var router = express.Router();
 
 /**
@@ -64,11 +75,12 @@ router.get('/releve/',function(req,res,next){
           return res.status(500).json({ success: false, data: err});
         }
 
-        if(data.dateDebut=="" && data.dateFin==""){
+        if(data.dateDebut=='' && data.dateFin==''){
+
 			var nbCaptures = 0;
-			if(data.villes!==""){
+			if(data.ville!==''){
 		        // SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures WHERE ville=$1",[data.ville]);
+		        var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1",[data.ville]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -80,7 +92,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures WHERE ville=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -96,9 +108,9 @@ router.get('/releve/',function(req,res,next){
 		            }
 		        });
 		    }
-		    else if(data.departement!==""){
+		    else if(data.departement!==''){
 		    	// SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures WHERE departement=$1",[data.departement]);
+		        var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1",[data.departement]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -110,7 +122,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures WHERE departement=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -132,14 +144,28 @@ router.get('/releve/',function(req,res,next){
 
 		}
 		else{
+			if(data.dateDebut==''){
+				data.dateDebut = new Date("01/01/1950").toISOString();
+			}
+			else{
+				var date = new Date(data.dateDebut);
+				date.setUTCHours(0,0,0,0);
 
-			data.dateDebut = new Date(data.dateDebut);
-			data.dateFin = new Date(data.dateFin);
+				var isodate = date.toISOString();
+				data.dateDebut = isodate;
+			}
+			if(data.dateFin==''){
+				var date = new Date();
+				date.setUTCHours(23,59,59,999);
 
-			if(data.ville!==""){
+				var isodate = date.toISOString();
+				data.dateFin = isodate;
+			}
+
+			if(data.ville!==''){
 	            var nbCaptures = 0;
 	            // SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures WHERE ville=$1 AND date BETWEEN $2 AND $3",[data.ville,data.dateDebut,data.dateFin]);
+		        var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1 AND date BETWEEN $2 AND $3",[data.ville,data.dateDebut,data.dateFin]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -151,7 +177,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures WHERE ville=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.ville,data.dateDebut,data.dateFin,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.ville,data.dateDebut,data.dateFin,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -167,10 +193,10 @@ router.get('/releve/',function(req,res,next){
 		            }
 		        });
 	        }
-	        else if(data.departement!==""){
+	        else if(data.departement!==''){
             	var nbCaptures = 0;
             	// SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures WHERE departement=$1 AND date BETWEEN $2 AND $3",[data.departement,data.dateDebut,data.dateFin]);
+		        var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1 AND date BETWEEN $2 AND $3",[data.departement,data.dateDebut,data.dateFin]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -182,7 +208,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures WHERE departement=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.departement,data.dateDebut,data.dateFin,data.skip,data.limit]);
+		            	var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1 AND date BETWEEN $2 AND $3 OFFSET $4 LIMIT $5",[data.departement,data.dateDebut,data.dateFin,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -272,7 +298,7 @@ router.post('/',function(req,res,next){
 					co2:critere.co2,
 					ville:localisation[0].city,
 					departement:"",
-					date:""
+					geom:"POINT("+critere.lng+" "+critere.lat+")"
 				};
 
 				 // Get a Postgres client from the connection pool
@@ -285,7 +311,7 @@ router.post('/',function(req,res,next){
 			        }
 
 			        // SQL Query > Select Data
-			        var query = client.query("SELECT departements.nom FROM villes,departements WHERE villes.code = departements.code AND villes.nom=$1",[data.ville]);
+			        var query = client.query("SELECT departements.code AS departement, villes.code AS ville FROM villes,departements WHERE villes.departement = departements.code AND villes.nom=$1",[data.ville]);
 
 			        // Stream results back one row at a time
 			        query.on('row', function(row) {
@@ -295,12 +321,14 @@ router.post('/',function(req,res,next){
 			        // After all data is returned, close connection and return results
 			        query.on('end', function() {
 			            if(results.length>0){
-			            	data.departement = results[0]['nom'];
-			            	var d = new Date();
-							data.date = d;
-        					client.query("INSERT INTO captures(latitude,longitude,temperature,humidite,son,co2,ville,departement,date) values($1, $2, $3, $4, $5, $6, $7, $8, $9)", [data.lat,data.lng,,data.temperature,data.humidite,data.son,data.co2,data.ville,data.departement,data.date]);
+			            	data.departement = results[0]['departement'];
+			            	data.ville = results[0]['ville'];
+	    					client.query("INSERT INTO captures(latitude,longitude,temperature,humidite,son,co2,ville,departement,date,geom) values($1, $2, $3, $4, $5, $6, $7, $8, CURRENT_TIMESTAMP,st_geomfromtext($9,4326))", [data.lat,data.lng,data.temperature,data.humidite,data.son,data.co2,data.ville,data.departement,data.geom]);
 			            	done();
+			            	return false;
 			            }
+			            else
+			            	return false;
 			        });
 			    });
 			});
