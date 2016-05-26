@@ -231,3 +231,9 @@ footer.page-footer a{
 .ol-touch .change-layer {
     top: 80px;
 }
+
+.hide-interface {
+    width: 100%;
+    height: 600px;
+    padding: 10px;
+}

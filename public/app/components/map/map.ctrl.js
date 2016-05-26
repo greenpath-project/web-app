@@ -1,10 +1,18 @@
-angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map', function($scope, $timeout, Map){  
+angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', '$rootScope', '$routeParams', 'Map', function($scope, $timeout, $rootScope, $routeParams, Map){   
+        
+    if($routeParams.hideInterface != undefined){
+        if($routeParams.hideInterface === 'true'){
+            $rootScope.hideInterface = true;
+        }
+        else if($routeParams.hideInterface === 'false'){
+            $rootScope.hideInterface = false;
+        }        
+    }
     
     window.app = {};
     var app = window.app
        
-    var extent = ol.proj.transformExtent([-0.575136, 44.862222,
-                    -0.557862, 44.867297], 'EPSG:4326', 'EPSG:3857');
+    var extent = ol.proj.transformExtent([-0.5, 44, -0.6, 45], 'EPSG:4326', 'EPSG:3857');
         
     var projection = new ol.proj.Projection({
         code: 'EPSG:4326',
@@ -147,6 +155,11 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', 'Map
      * Popup
      */
     $timeout(function(){
+        
+        if($rootScope.hideInterface == true){
+            $('#map').addClass('hide-interface');
+            map.updateSize();
+        }
         
          /**
          * Elements that make up the popup.
