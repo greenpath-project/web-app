@@ -35,8 +35,6 @@ angular.module('greenPathApp').controller('EngineCtrl', ['$scope','$http', '$tim
                 }
 
                 $scope.results = data.captures;
-                
-                console.log(JSON.stringify($scope.results))
 
                 $timeout(function(){
                     $('html, body').animate({scrollTop: $('#datatable').position().top},500);

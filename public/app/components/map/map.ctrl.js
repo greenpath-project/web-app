@@ -6,6 +6,7 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', '$ro
         }
         else if($routeParams.hideInterface === 'false'){
             $rootScope.hideInterface = false;
+            window.location = "#/home";
         }        
     }
     
@@ -158,6 +159,15 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', '$ro
         
         if($rootScope.hideInterface == true){
             $('#map').addClass('hide-interface');
+            var height = $(window).height();
+            $('#map').css('height', height);
+            map.updateSize();
+        }
+        else{
+            var height = $(window).height();
+            height = height * (70 / 100);
+            $('#map').css('height', height);
+            $('#map').css('width', '100%');
             map.updateSize();
         }
         
