@@ -80,7 +80,7 @@ router.get('/releve/',function(req,res,next){
 			var nbCaptures = 0;
 			if(data.ville!==''){
 		        // SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1",[data.ville]);
+		        var query = client.query("SELECT latitude,longitude,temperature,humidite,son,co2,villes.nom as ville,departements.nom as departement,date,geom FROM captures, villes, departements WHERE captures.ville = villes.code AND captures.departement = departements.code AND villes.nom=$1",[data.ville]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -92,7 +92,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures, villes WHERE captures.ville = villes.code AND villes.nom=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
+		            	var query = client.query("SELECT latitude,longitude,temperature,humidite,son,co2,villes.nom as ville,departements.nom as departement,date,geom FROM captures, villes, departements WHERE captures.ville = villes.code AND captures.departement = departements.code AND villes.nom=$1 OFFSET $2 LIMIT $3",[data.ville,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
@@ -110,7 +110,7 @@ router.get('/releve/',function(req,res,next){
 		    }
 		    else if(data.departement!==''){
 		    	// SQL Query > Select Data
-		        var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1",[data.departement]);
+		        var query = client.query("SELECT latitude,longitude,temperature,humidite,son,co2,villes.nom as ville,departements.nom as departement,date,geom FROM captures, villes, departements WHERE captures.ville = villes.code AND captures.departement = departements.code AND departements.nom=$1",[data.departement]);
 
 		        // Stream results back one row at a time
 		        query.on('row', function(row) {
@@ -122,7 +122,7 @@ router.get('/releve/',function(req,res,next){
 		            if(results.length>0){
 		            	nbCaptures = results.length;
 		            	results = [];
-		            	var query = client.query("SELECT * FROM captures, departements WHERE captures.departement = departements.code AND departements.nom=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
+		            	var query = client.query("SELECT latitude,longitude,temperature,humidite,son,co2,villes.nom as ville,departements.nom as departement,date,geom FROM captures, villes, departements WHERE captures.ville = villes.code AND captures.departement = departements.code AND departements.nom=$1 OFFSET $2 LIMIT $3",[data.departement,data.skip,data.limit]);
 		            	 // Stream results back one row at a time
 				        query.on('row', function(row) {
 				            results.push(row);
