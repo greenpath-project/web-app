@@ -4,7 +4,7 @@ angular.module('greenPathApp').factory('Map', [function(){
         return new ol.source.Vector({
             format: new ol.format.GeoJSON(),
             url: function(extent) {
-                return 'http://localhost:3000/geoserver/greenpath/ows?service=WFS&' +
+                return 'http://geoserver.jumpt.fr/greenpath/ows?service=WFS&' +
                     'version=1.1.0&request=GetFeature&typeName=greenpath:captures&' +
                     'outputFormat=application%2Fjson&bbox=' + extent.join(',') + ',EPSG:3857&srsname=EPSG:3857';
             },

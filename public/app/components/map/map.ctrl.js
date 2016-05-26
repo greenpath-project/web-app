@@ -195,17 +195,28 @@ angular.module('greenPathApp').controller('MapCtrl', ['$scope', '$timeout', '$ro
                 var feature = layerPoints.getSource().getClosestFeatureToCoordinate(evt.coordinate);
 
                 var date = feature.U.date.replace('T', ' ').replace('Z', '');
+                
+                var air = '<li> Qualité air : Pas de données.</li>';
+                if(feature.U.co2 > 400){
+                    var air = '<li> Qualité air : Mauvaise.</li>';
+                }
+                else if(feature.U.co2 < 400 && feature.U.co2 > 200){
+                    var air = '<li> Qualité air : Moyenne.</li>';
+                }
+                else if(feature.U.co2 < 200){
+                    var air = '<li> Qualité air : Bonne.</li>';
+                }
 
                  content.innerHTML = '<ul style="font-family: Arial; font-size: small;">'
-                    + '<li> Date : ' + date + '</li>'  
-                    + '<li> Longitude : ' + feature.U.longitude + '</li>'
-                    + '<li> Latitude : ' + feature.U.latitude + '</li>'               
-                    + '<li> Son : ' + feature.U.son + ' dB</li>'
-                    + '<li> Humidite : '+ feature.U.humidite +' %</li>'
-                    + '<li> Temperature : ' + feature.U.temperature + ' °C</li>'                 
-                    + '<li> Co2 : ' + feature.U.co2 + '</li>'
                     + '<li> Ville : ' + feature.U.ville + '</li>'
                     + '<li> Departement : ' + feature.U.departement + '</li>'
+                    + '<li> Date : ' + date + '</li>'
+                    + air                              
+                    + '<li> Son : ' + feature.U.son + ' dB</li>'
+                    + '<li> Humidite : '+ feature.U.humidite +' %</li>'
+                    + '<li> Temperature : ' + feature.U.temperature + ' °C</li>' 
+                    + '<li> Longitude : ' + feature.U.longitude + '</li>'
+                    + '<li> Latitude : ' + feature.U.latitude + '</li>'  
                     + '</ul>'
 
                 overlay.setPosition(feature.getGeometry().getCoordinates());

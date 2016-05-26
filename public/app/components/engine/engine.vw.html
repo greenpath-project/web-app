@@ -49,7 +49,7 @@
     </form>
 
     <div id="datatable" class="col s12 m12" ng-if="results.length != 0 && searchLaunch == true">
-        <h5>{{ nbCaptures }} résultats</h5>
+        <h5>{{ nbCaptures }} résultat(s)</h5>
         <table class="responsive-table striped">
             <thead>
             <tr>
@@ -70,12 +70,12 @@
                 <td>{{result.date | date : 'dd/MM/yyyy - HH:mm:ss'}}</td>
                 <td>{{result.departement}}</td>
                 <td>{{result.ville}}</td>
-                <td>{{formatNumber(result.temperature)}}</td>
-                <td>{{formatNumber(result.humidite)}}</td>
-                <td>{{formatNumber(result.son)}}</td>
+                <td>{{formatNumber(result.temperature)}} °C</td>
+                <td>{{formatNumber(result.humidite)}} %</td>
+                <td>{{formatNumber(result.son)}} dB</td>
                 <td>{{formatNumber(result.co2)}}</td>
-                <td>{{formatNumber(result.lat)}}</td>
-                <td>{{formatNumber(result.lng)}}</td>
+                <td>{{formatNumber(result.latitude)}}</td>
+                <td>{{formatNumber(result.longitude)}}</td>
             </tr>
             </tbody>
         </table>
