@@ -25,10 +25,15 @@ angular.module('greenPathApp').config(['$routeProvider', function($routeProvider
             templateUrl: 'app/components/engine/engine.vw.html',
             controller: 'EngineCtrl'
         }
-    ).when('/map/:hideInterface?',
+    ).when('/map',
         {
             templateUrl: 'app/components/map/map.vw.html',
             controller: 'MapCtrl'
+        }
+    ).when('/map/nointerface',
+        {
+            templateUrl: 'app/components/map/nointerface/nointerface.vw.html',
+            controller: 'NointerfaceCtrl'
         }
     ).when('/project',
         {
