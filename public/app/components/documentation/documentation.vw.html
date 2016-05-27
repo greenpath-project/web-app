@@ -5,9 +5,8 @@
     <div ng-repeat="section in sections">
         <div class="divider"></div>
         <div class="section">
-            <h5>{{section.name}}</h5>
+            <a ng-href="{{section.hyperlink}}"><h5>{{section.name}}</h5></a>
             <p class="text-section">{{section.text}}</p>
-            <a class="waves-effect waves-light btn green" ng-href="{{section.hyperlink}}">Voir plus...</a>
         </div>
     </div>
 

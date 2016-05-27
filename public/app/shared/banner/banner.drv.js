@@ -3,7 +3,6 @@ angular.module('greenPathApp').directive('mzBanner', ['$timeout', function($time
         restrict: 'E',
         replace: true,
         scope: {
-            data: '='
         },
         templateUrl: './app/shared/banner/banner.vw.html',
         link: function(scope, element, attrs) {
