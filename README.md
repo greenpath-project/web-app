@@ -1,6 +1,7 @@
-# GreenPath Project
+# GreenPath Project Web App
 
-Repository of the Green Path Team.
+Student project, EPSI Bordeaux 2015-2016.
 
-Student project for EPSI Bordeaux 2015-2016.
+Stack : NodeJS, Express, PostgreSQL, PostGIS, GeoServer, AngularJS, Materialize, NPM, Bower.
 
+[Demo](http://greenpath.jumpt.fr/)
