@@ -235,9 +235,10 @@ router.get('/releve/',function(req,res,next){
  * Enregistrement d'une capture
  * Méthode POST
  */
-router.post('/',function(req,res,next){
+router.post('/',function(req,res,next){	
 	//Récupération des données envoyés par l'application
 	var critere = req.body;
+	console.log('création ' + JSON.stringify(critere));
 	var capteur_lng = critere.lng;
 	var capteur_lat = critere.lat;
 	var capteur_temperature = critere.temperature;
@@ -254,7 +255,7 @@ router.post('/',function(req,res,next){
 	capteur_co2++;
 
 	//Création de la nouvelle capture
-	var capture = new Capture();
+	var capture = {};
 
 	if(capteur_lng !== NaN)
 		capture.lng = critere.lng;
@@ -325,10 +326,10 @@ router.post('/',function(req,res,next){
 			            	data.ville = results[0]['ville'];
 	    					client.query("INSERT INTO captures(latitude,longitude,temperature,humidite,son,co2,ville,departement,date,geom) values($1, $2, $3, $4, $5, $6, $7, $8, CURRENT_TIMESTAMP,st_geomfromtext($9,4326))", [data.lat,data.lng,data.temperature,data.humidite,data.son,data.co2,data.ville,data.departement,data.geom]);
 			            	done();
-			            	return false;
+			            	return res.status(200).json({ success: true});
 			            }
 			            else
-			            	return false;
+			            	return res.status(500).json({ success: false});
 			        });
 			    });
 			});
